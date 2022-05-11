@@ -9,7 +9,10 @@ registerRouter.post("/register", async (req, res, next) => {
     const newUser = await RegisterService.create({ name, email, password });
     res.status(200).json(newUser);
   } catch (error) {
-    next(error);
+    res.status(400).json({
+      status: "fail",
+      message: error.message,
+    });
   }
 });
 
