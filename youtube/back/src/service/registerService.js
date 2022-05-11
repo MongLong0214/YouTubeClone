@@ -1,4 +1,4 @@
-import { UserMondel } from "../db/index";
+import { UserModel } from "../db/index";
 import { hashPassword } from "../utils/hashPassword";
 class RegisterService {
   static create = async ({ name, email, password }) => {
@@ -8,7 +8,7 @@ class RegisterService {
       email,
       password: hashedPassword,
     };
-    const newUser = await UserMondel.create(newUserData);
+    const newUser = await UserModel.create(newUserData);
     return newUser;
   };
 }
