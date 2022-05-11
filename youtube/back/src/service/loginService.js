@@ -21,7 +21,7 @@ class loginService {
 
       user = {
         ...user,
-        accessToken,
+        accessToken: token,
       };
 
       return user;
