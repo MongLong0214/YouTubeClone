@@ -6,7 +6,7 @@ class UserModel {
   };
 
   static findByEmail = async ({ email }) => {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).lean();
     return user;
   };
 }
