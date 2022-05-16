@@ -4,10 +4,10 @@ import { Button } from '@mui/material';
 
 //회원가입 타이틀
 export const RegisterTitle = styled(TitleText)`
-  padding-top: 130px;
-  padding-bottom: 130px;
-  margin-bottom: 0;
-  font-size: 20px;
+  padding-top: 50px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  font-size: 30px;
   color: black;
 `;
 
