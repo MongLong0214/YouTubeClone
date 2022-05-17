@@ -30,7 +30,7 @@ export const TitleText = styled.h1`
   font-size: 50px;
 
   margin-bottom: 40px;
-  color: #f03e3e;
+  color: black;
 `;
 
 //Sign-up, ForgetPassword Container

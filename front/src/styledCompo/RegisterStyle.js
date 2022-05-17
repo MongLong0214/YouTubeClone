@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 
 //회원가입 타이틀
 export const RegisterTitle = styled(TitleText)`
-  padding-top: 50px;
+  padding-top: 20px;
   padding-bottom: 30px;
   margin-bottom: 30px;
   font-size: 30px;
@@ -13,6 +13,6 @@ export const RegisterTitle = styled(TitleText)`
 
 // 회원가입 글래스
 export const RegisterGlass = styled(LoginGlass)`
-  height: 600px;
+  height: 650px;
   justify-content: flex-start;
 `;

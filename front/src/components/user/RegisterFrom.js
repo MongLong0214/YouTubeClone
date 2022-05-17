@@ -71,7 +71,6 @@ const RegisterFrom = () => {
           alignItems: 'center',
           flexFlow: 'column',
           marginTop: 160,
-          marginBottom: 113,
         }}
       >
         <RegisterGlass>
