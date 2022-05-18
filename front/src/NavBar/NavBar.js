@@ -150,8 +150,9 @@ const NavBar = () => (
             style={cardStyle}
             className='videoBox'
             hoverable
-            cover={<img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'/>}
         >
+          <img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'
+              style={cardimageStyle}/>
             <Meta title="LCK 파이팅" description="조회수 2.5만회"/>
           </Card.Grid>
 
@@ -159,8 +160,9 @@ const NavBar = () => (
             style={cardStyle}
             className='videoBox'
             hoverable
-            cover={<img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'/>}
         >
+          <img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'
+              style={cardimageStyle}/>
             <Meta title="LCK 파이팅" description="조회수 2.5만회"/>
           </Card.Grid>
 
@@ -168,8 +170,19 @@ const NavBar = () => (
             style={cardStyle}
             className='videoBox'
             hoverable
-            cover={<img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'/>}
         >
+          <img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'
+              style={cardimageStyle}/>
+            <Meta title="LCK 파이팅" description="조회수 2.5만회"/>
+          </Card.Grid>
+          
+          <Card.Grid
+            style={cardStyle}
+            className='videoBox'
+            hoverable
+        >
+          <img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'
+              style={cardimageStyle}/>
             <Meta title="LCK 파이팅" description="조회수 2.5만회"/>
           </Card.Grid>
 
@@ -177,26 +190,19 @@ const NavBar = () => (
             style={cardStyle}
             className='videoBox'
             hoverable
-            cover={<img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'/>}
         >
+          <img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'
+              style={cardimageStyle}/>
             <Meta title="LCK 파이팅" description="조회수 2.5만회"/>
           </Card.Grid>
-
+          
           <Card.Grid
             style={cardStyle}
             className='videoBox'
             hoverable
-            cover={<img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'/>}
         >
-            <Meta title="LCK 파이팅" description="조회수 2.5만회"/>
-          </Card.Grid>
-
-          <Card.Grid
-            style={cardStyle}
-            className='videoBox'
-            hoverable
-            cover={<img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'/>}
-        >
+          <img alt='예제' src='https://i.ytimg.com/vi/XUruxrozLoI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAeBKE3NIvs-EkQ2B0miYVcag9wcg'
+              style={cardimageStyle}/>
             <Meta title="LCK 파이팅" description="조회수 2.5만회"/>
           </Card.Grid>
 
