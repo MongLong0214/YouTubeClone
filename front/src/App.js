@@ -7,8 +7,7 @@ function App() {
     <>
     <SideBar />
     <SubScribe />
-    {/* <NavBar />
-    <p>안녕하세요</p> */}
+    {/* <NavBar /> */}
     </>
   );
 
