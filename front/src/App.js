@@ -18,6 +18,7 @@ function App() {
       <Route path="/login" element={<LoginForm />} />
     </Routes>
   );
+
 }
 
 export default App;
