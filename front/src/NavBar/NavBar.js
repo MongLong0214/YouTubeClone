@@ -1,5 +1,4 @@
 import React from 'react'
-import './NavBar.css'
 import 'antd/dist/antd.css'; 
 import { Row, Col, Layout, Menu, Image, PageHeader, Card, Button } from 'antd';
 import {
