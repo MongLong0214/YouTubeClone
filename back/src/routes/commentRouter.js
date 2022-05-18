@@ -1,19 +1,43 @@
 import { Router } from "express";
-import { RegisterService } from "../service/registerService";
+import { loginRequired } from "../middlewares/loginRequired";
+import { CommentModel } from "../db/model/Comment";
 
-const registerRouter = Router();
+const commentRouter = Router();
 
-registerRouter.post("/register", async (req, res, next) => {
+commentRouter.use(loginRequired);
+
+// 댓글 작성
+commentRouter.post("/comments/comment", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-    const newUser = await RegisterService.create({ name, email, password });
-    res.status(200).json(newUser);
-  } catch (error) {
-    res.status(400).json({
-      status: "fail",
-      message: error.message,
+    CommentModel.create(req.body);
+  } catch (err) {
+    return res.json({ success: false });
+  }
+  return res.status(201).json({ sucess: true });
+});
+
+// 댓글 1개 조회
+commentRouter.get("/comments/:comment_id", async (req, res) => {
+  try {
+    const comment_id = req.params.comment_id;
+    CommentModel.get(comment_id).then((comment) => {
+      res.status(200).json({ success: true, comment });
     });
+  } catch (err) {
+    return res.json({ success: false });
   }
 });
 
-export { registerRouter };
+// 비디오에 해당하는 댓글 모두 조회
+commentRouter.get("/:video_id/comments", async (req, res) => {
+  try {
+    const video_id = req.params.video_id;
+    CommentModel.getAll(video_id).then((comments) => {
+      res.status(200).json({ success: true, comments });
+    });
+  } catch (err) {
+    return res.json({ success: false });
+  }
+});
+
+export { commentRouter };
