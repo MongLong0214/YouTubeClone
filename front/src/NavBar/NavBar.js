@@ -127,7 +127,7 @@ const NavBar = () => (
           ghost={false}
           title="LCK"
           subTitle="구독자 71.1만명"
-          avatar={{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }}-
+          avatar={{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }}
           extra={[
             <Button key="1" type="primary">
               구독
