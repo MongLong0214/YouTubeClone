@@ -4,6 +4,7 @@ const multer = require("multer");
 const ffmpeg = require("fluent-ffmpeg");
 import { path } from "path";
 import { VideoService } from "../service/videoService";
+import { loginRequired } from "../middlewares/loginRequired";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -26,7 +27,7 @@ const upload = multer({ storage: storage }).single("file");
 
 const videoRouter = Router();
 //videoRouter.use(loginRequired);
-
+videoRouter.use(loginRequired);
 videoRouter.post("/video/upload", async (req, res) => {
   //비디오를 서버에 업로드
   upload(req, res, (err) => {
