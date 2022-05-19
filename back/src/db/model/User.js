@@ -26,6 +26,11 @@ class UserModel {
     const user = await User.findById(id);
     return user;
   };
+
+  static delete = async ({ id }) => {
+    const deletedUser = await User.findByIdAndDelete(id);
+    return deletedUser;
+  };
 }
 
 export { UserModel };

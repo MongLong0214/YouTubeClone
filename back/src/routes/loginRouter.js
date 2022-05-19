@@ -50,6 +50,21 @@ loginRouter.put("/login", verifyToken, async (req, res, next) => {
   }
 });
 
+loginRouter.delete("/login", verifyToken, async (req, res, next) => {
+  try {
+    const userId = req.user;
+    const deletedUser = await loginService.delete({ userId });
+
+    if (deletedUser.errorMessage) {
+      throw new Error(deletedUser.errorMessage);
+    }
+
+    res.status(200).json(deletedUser);
+  } catch (error) {
+    next();
+  }
+});
+
 loginRouter.get("/verify", verifyToken, (req, res) => {
   res.status(200).json({
     status: "succ",
