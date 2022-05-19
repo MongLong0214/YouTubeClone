@@ -5,12 +5,12 @@ class CommentService {
     CommentModel.create(comment);
   };
 
-  static getComment = async () => {
-    const comment = await CommentModel.get();
+  static getComment = async (id) => {
+    const comment = await CommentModel.get(id);
     return comment;
   };
-  static getComments = async () => {
-    const comments = await CommentModel.getAll();
+  static getComments = async (video_id) => {
+    const comments = await CommentModel.getAll(video_id);
     return comments;
   };
 }

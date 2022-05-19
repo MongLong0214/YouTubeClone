@@ -12,15 +12,14 @@ commentRouter.post("/comments/comment", async (req, res) => {
     CommentService.create(req.body);
     return res.status(201).json({ sucess: true });
   } catch (err) {
-    console.log(err);
+    return res.json({ success: false });
   }
 });
 
 // 댓글 1개 조회
-commentRouter.get("/comments/:comment_id", async (req, res) => {
+commentRouter.get("/comments/comment", async (req, res) => {
   try {
-    const comment_id = req.params.comment_id;
-    CommentService.getComment(comment_id).then((comment) => {
+    CommentService.getComment(req.body).then((comment) => {
       res.status(200).json({ success: true, comment });
     });
   } catch (err) {
@@ -29,14 +28,14 @@ commentRouter.get("/comments/:comment_id", async (req, res) => {
 });
 
 // 비디오에 해당하는 댓글 모두 조회
-commentRouter.get("/:video_id/comments", async (req, res, next) => {
+commentRouter.get("/comments", async (req, res) => {
   try {
-    const video_id = req.params.video_id;
+    const video_id = req.body.video_id;
     CommentService.getComments(video_id).then((comments) => {
       res.status(200).json({ success: true, comments });
     });
   } catch (err) {
-    next(err);
+    return res.json({ success: false });
   }
 });
 
