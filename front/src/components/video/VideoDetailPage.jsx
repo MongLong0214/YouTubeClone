@@ -8,7 +8,7 @@ const VideoDetailPage = () => {
   const { id } = useParams();
   const [selectedVideo, setSelectedVideo] = useState(null);
   const getVideoDetail = async () => {
-    const data = await API.get(`http://localhost:3001/video/getVideoDetail/${id}`);
+    const data = await API.get(`video/getVideoDetail/${id}`);
     console.log(data);
   };
   useEffect(() => {
