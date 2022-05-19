@@ -1,52 +1,60 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // import { useAlert } from 'react-alert';
 
-import Container from "@mui/material/Container";
+import Container from '@mui/material/Container';
 
-import { validateEmail } from "../../helpers/index";
+import { validateEmail } from '../../helpers/index';
 
-import * as Api from "../../api";
+import * as Api from '../../api';
 
 // Mui
-import { Box } from "@mui/material";
-import Stack from "@mui/material/Stack";
+import { Box } from '@mui/material';
+import Stack from '@mui/material/Stack';
 
 // import styled compo
-import { ValidationTextField, ColorButton } from "../../styledCompo/muiCustom";
+import { ValidationTextField, ColorButton } from '../../styledCompo/muiCustom';
 
-import { RegisterGlass, RegisterTitle } from "../../styledCompo/RegisterStyle";
-import { RedSpan } from "../../styledCompo/LoginStyle";
+import { RegisterGlass, RegisterTitle } from '../../styledCompo/RegisterStyle';
+import { RedSpan } from '../../styledCompo/LoginStyle';
+
+// import recoil
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { userInfoState } from '../../atom';
 
 const RegisterFrom = () => {
   const navigate = useNavigate();
 
+  //@ 전역 유저 정보
+  const user = useRecoilValue(userInfoState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
   //useState로 name 상태를 생성함.
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   //useState로 email 상태를 생성함.
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   //useState로 password 상태를 생성함.
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   //useState로 confirmPassword 상태를 생성함.
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState('');
   // const Alert = useAlert();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await Api.post("register", {
+      await Api.put('login', {
         email,
         name,
         password,
       });
 
       // 로그인 페이지로 이동함.
-      navigate("/login");
-      alert("You have successfully registered as a member.");
+      navigate('/login');
+      alert('You have successfully registered as a member.');
     } catch (err) {
-      alert("This email is currently in use. Please enter another email.");
+      alert('This email is currently in use. Please enter another email.');
     }
   };
 
@@ -60,17 +68,18 @@ const RegisterFrom = () => {
   const isNameValid = name.length >= 2;
 
   ///@ 조건이 모두 동시에 만족되는지 여부를 확인함.
-  const isFormValid =
-    isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
+  const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
+
+  console.log(user.email);
 
   return (
     <div>
       <Container
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexFlow: "column",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexFlow: 'column',
           marginTop: 160,
         }}
       >
@@ -78,19 +87,19 @@ const RegisterFrom = () => {
           <form
             onSubmit={handleSubmit}
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexFlow: "column",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexFlow: 'column',
             }}
           >
-            {" "}
-            <RegisterTitle>Register</RegisterTitle>
+            {' '}
+            <RegisterTitle>Edit</RegisterTitle>
             <Box
               sx={{
-                "& > :not(style)": {
+                '& > :not(style)': {
                   m: 1,
-                  width: "560px",
+                  width: '560px',
                 },
               }}
               autoComplete="off"
@@ -98,8 +107,8 @@ const RegisterFrom = () => {
               {/* ///@ 이메일 */}
               <div
                 style={{
-                  "@media (maxWidth: 766px)": {
-                    width: "auto",
+                  '@media (maxWidth: 766px)': {
+                    width: 'auto',
                   },
                 }}
               >
@@ -109,15 +118,7 @@ const RegisterFrom = () => {
                   id="outlined-required"
                   label="Email Address"
                   autoComplete="email"
-                  helperText={
-                    !isEmailValid && (
-                      <RedSpan>The email format is not valid.</RedSpan>
-                    )
-                  }
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
+                  value={user.email}
                   style={{ marginBottom: 20 }}
                 />
 
@@ -131,9 +132,7 @@ const RegisterFrom = () => {
                   autoComplete="current-password"
                   value={password}
                   helperText={
-                    !isPasswordValid && (
-                      <RedSpan> Password is more than 4 characters. </RedSpan>
-                    )
+                    !isPasswordValid && <RedSpan> Password is more than 4 characters. </RedSpan>
                   }
                   onChange={(e) => {
                     setPassword(e.target.value);
@@ -150,11 +149,7 @@ const RegisterFrom = () => {
                   type="password"
                   autoComplete="current-password"
                   value={confirmPassword}
-                  helperText={
-                    !isPasswordSame && (
-                      <RedSpan> Passwords do not match. </RedSpan>
-                    )
-                  }
+                  helperText={!isPasswordSame && <RedSpan> Passwords do not match. </RedSpan>}
                   onChange={(e) => {
                     setConfirmPassword(e.target.value);
                     // setCheckLogin(true);
@@ -167,11 +162,7 @@ const RegisterFrom = () => {
                   required
                   label="Name"
                   helperText={
-                    !isNameValid && (
-                      <RedSpan>
-                        Please set the name at least 2 characters.
-                      </RedSpan>
-                    )
+                    !isNameValid && <RedSpan>Please set the name at least 2 characters.</RedSpan>
                   }
                   value={name}
                   onChange={(e) => {
@@ -184,16 +175,16 @@ const RegisterFrom = () => {
                 spacing={1}
                 direction="row"
                 sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
                 style={{ marginTop: 40 }}
               >
                 {/* ///@ 버튼들 */}
                 <ColorButton
                   variant="outlined"
-                  style={{ width: "35%" }}
+                  style={{ width: '35%' }}
                   disabled={!isFormValid}
                   onClick={handleSubmit}
                 >
@@ -201,8 +192,8 @@ const RegisterFrom = () => {
                 </ColorButton>
                 <ColorButton
                   variant="outlined"
-                  style={{ width: "35%" }}
-                  onClick={() => navigate("/login")}
+                  style={{ width: '35%' }}
+                  onClick={() => navigate('/login')}
                 >
                   Back
                 </ColorButton>

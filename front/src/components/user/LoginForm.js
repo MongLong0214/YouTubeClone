@@ -63,6 +63,7 @@ const LoginForm = () => {
 
       setToken(user.token);
       setUser(user);
+
       // 기본 페이지로 이동함.
       navigate('/', { replace: true });
     } catch (err) {
@@ -169,9 +170,18 @@ const LoginForm = () => {
               <Stack
                 spacing={1}
                 direction="row"
-                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
               >
-                <ColorButton variant="outlined" type="submit" disabled={!isFormValid}>
+                <ColorButton
+                  variant="outlined"
+                  type="submit"
+                  disabled={!isFormValid}
+                  onClick={handleSubmit}
+                >
                   Sign-in
                 </ColorButton>
 
