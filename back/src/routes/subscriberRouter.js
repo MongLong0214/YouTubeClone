@@ -4,7 +4,7 @@ import { SubscriberService } from "../service/subscriberService";
 
 const subscriberRouter = Router();
 
-// subscriberRouter.use(loginRequired);
+subscriberRouter.use(loginRequired);
 
 // 구독하기
 subscriberRouter.post("/subscribe", async (req, res) => {
