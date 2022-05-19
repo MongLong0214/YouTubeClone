@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from '../src/components/home/Home';
@@ -8,6 +9,18 @@ import VideoDetailPage from './components/video/VideoDetailPage';
 
 function App() {
   const location = useLocation();
+=======
+import SideBar from './NavBar/SideBar';
+import SubScribe from './NavBar/Subscribe';
+
+function App() {
+  return (
+    <>
+    <SideBar />
+    <SubScribe />
+    </>
+  );
+>>>>>>> origin/Subscribe_front_MVP
 
   useEffect(() => {
     window.scrollTo({ top: 0 });

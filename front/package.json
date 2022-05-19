@@ -13,17 +13,23 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.20.4",
     "axios": "^0.27.2",
+<<<<<<< HEAD
     "cors": "^2.8.5",
+=======
+>>>>>>> origin/Subscribe_front_MVP
     "react": "^18.1.0",
     "react-alert": "^7.0.3",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+<<<<<<< HEAD
     "recoil": "^0.7.3-alpha.2",
     "recoil-persist": "^4.1.0",
     "redux": "^4.2.0",
     "redux-logger": "^3.0.6",
+=======
+>>>>>>> origin/Subscribe_front_MVP
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
