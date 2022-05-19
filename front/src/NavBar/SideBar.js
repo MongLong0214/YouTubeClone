@@ -12,7 +12,7 @@ import {
   YoutubeOutlined,
   LikeOutlined,
   LoginOutlined,
-  WindowsOutlined,
+  UploadOutlined,
 } from '@ant-design/icons';
 
 function getItem(label, key, icon, children) {
@@ -44,7 +44,7 @@ const items = [
 
 const items2 = [
 
-  getItem('설정', '1', <WindowsOutlined/>),
+  getItem('업로드', '1', <UploadOutlined/>),
   getItem('로그인', '2', <LoginOutlined />),
 
 ]

@@ -40,7 +40,7 @@ const items = [
 
 const items2 = [
 
-  getItem('설정', '1', <WindowsOutlined/>),
+  getItem('업로드', '1', <WindowsOutlined/>),
   getItem('로그인', '2', <LoginOutlined />),
 
 ]
