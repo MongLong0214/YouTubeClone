@@ -4,6 +4,7 @@ import Home from '../src/components/home/Home';
 import RegisterForm from '../src/components/user/RegisterFrom';
 import LoginForm from '../src/components/user/LoginForm';
 import UserEditForm from '../src/components/user/UserEditForm';
+import VideoDetailPage from './components/video/VideoDetailPage';
 
 function App() {
   const location = useLocation();
@@ -18,6 +19,7 @@ function App() {
       <Route path="/register" element={<RegisterForm />} />
       <Route path="/login" element={<LoginForm />} />
       <Route path="/userEdit" element={<UserEditForm />} />
+      <Route path="/video/:id" element={<VideoDetailPage />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );
