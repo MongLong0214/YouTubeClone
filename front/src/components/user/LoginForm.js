@@ -57,12 +57,14 @@ const LoginForm = () => {
       // 유저 정보는 response의 data임.
       const user = res.data;
       // JWT 토큰은 유저 정보의 token임.
-      const jwtToken = user.token;
+
+      setToken(user.accessToken);
+      setUser(user);
+      const jwtToken = user.accessToken;
       // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
+      console.log('user==>', user, 'token===>', user.accessToken)
       sessionStorage.setItem('userToken', jwtToken);
 
-      setToken(user.token);
-      setUser(user);
 
       // 기본 페이지로 이동함.
       navigate('/', { replace: true });
