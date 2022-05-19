@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { TESTDATA } from '../utils/utils';
-import { useParams } from 'react-router-dom';
 import '../../css/VideoDetail.css';
 
 const VideoDetails = ({ video }) => {
-  const { id } = useParams();
   useEffect(() => {
     console.log(video);
   }, []);
