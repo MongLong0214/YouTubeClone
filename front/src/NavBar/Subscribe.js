@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import * as Api from "./Api";
 import 'antd/dist/antd.css'; 
-import { Row, Col, Layout, Menu, Image, PageHeader, Card, Button } from 'antd';
+import { Layout, Image, PageHeader, Card, Button } from 'antd';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content } = Layout;
 
 const { Meta } = Card;
 
@@ -27,7 +26,7 @@ const cardimageStyle = {
 
 const SubScribe = () => {
 
-  // 영상리스트 저장을 위한 useState
+  // 영상리스트 저장을 위한 useState, 아래는 예시 데이터.
 
   const [videoList, setVideoList] = useState([
     {
@@ -104,7 +103,7 @@ const SubScribe = () => {
     },])
 
 
-  // Api, 영상 전체 받아옴, videoList에 저장함. [getVideoList 함수]
+// Api, 영상 전체 받아옴, videoList에 저장함. [getVideoList 함수]
 
 //   const getVideoList = async() => {
 
@@ -118,7 +117,7 @@ const SubScribe = () => {
   // useEffect(() => {getVideoList()}, [videoList])
 
 
-  // map함수
+  // map함수 
 
   const mapVideo = videoList.map((video, index) => {  
     
@@ -148,7 +147,8 @@ const SubScribe = () => {
 
 )})
 
-// 밑에 부터 컴퍼넌트
+
+// ------------------------------- 아래는 컴퍼넌트  --------------------------//
 
 
 return (
@@ -190,45 +190,12 @@ return (
       </Button>,
     ]}
   />
-
-    <Card title="LCK 모음집">  
-    <Card.Grid
-      style={cardStyle}
-      className='videoBox'
-      hoverable
-    >
-    <iframe style={cardimageStyle} src="https://www.youtube.com/embed/lsy0b6h_X2A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen="" >   
-    </iframe>
-
-      <Meta title="LCK 파이팅" description="조회수 2.5만회"/>
-    </Card.Grid>
-
-    <Card.Grid
-      style={cardStyle}
-      className='videoBox'
-      hoverable
-    >
-    <iframe style={cardimageStyle} src="https://www.youtube.com/embed/lsy0b6h_X2A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen="" >   
-    </iframe>
-
-      <Meta title="LCK 파이팅" description="조회수 2.5만회"/>
-    </Card.Grid>
-
-
-
-  {/* 아래는 맵함수  */}
-
-  {mapVideo}
-
-
-  </Card>
-    
+  <Card title="LCK 모음집">  
+    {/* 아래는 맵함수  */}
+    {mapVideo}
+  </Card>  
   </div>
-</Content>
-
-
+  </Content>
 )}
 
 export default SubScribe
