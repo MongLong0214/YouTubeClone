@@ -6,6 +6,7 @@ import { verifyToken } from "../middlewares/verifyToken";
 const loginRouter = Router();
 
 loginRouter.post("/login", async (req, res, next) => {
+  // user 생성
   try {
     const { email, password } = req.body;
     const User = await loginService.login({ email, password });
@@ -20,6 +21,32 @@ loginRouter.post("/login", async (req, res, next) => {
       status: "fail",
       message: error.message,
     });
+    next();
+  }
+});
+
+loginRouter.put("/login", verifyToken, async (req, res, next) => {
+  try {
+    const { email, password, name } = req.body;
+    const userId = req.user;
+    const updatedUser = await loginService.update({
+      email,
+      password,
+      name,
+      userId,
+    });
+
+    if (updatedUser.errorMessage) {
+      throw new Error(updatedUser.errorMessage);
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      message: error.message,
+    });
+    next();
   }
 });
 

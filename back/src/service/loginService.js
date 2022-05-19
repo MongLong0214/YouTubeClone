@@ -31,6 +31,25 @@ class loginService {
       return { errorMessage };
     }
   };
+
+  static update = async ({ email, password, name, userId }) => {
+    const user = await UserModel.findById({ id: userId });
+
+    if (!user) {
+      const errorMessage =
+        "해당 이메일로 가입된 유저가 없습니다. 다시 한 번 확인해 주세요";
+      return { errorMessage };
+    }
+    const filter = { id: userId };
+
+    if (password) {
+      const hashedPassword = hashPassword(password);
+      password = hashedPassword;
+    }
+    const updateUserData = { ...user._doc, password, name, email };
+    const updatedUser = await UserModel.update({ filter, updateUserData });
+    return updatedUser;
+  };
 }
 
 export { loginService };
