@@ -1,10 +1,10 @@
 import { Router } from "express";
-//import { loginRequired } from "../middlewares/loginRequired";
 const multer = require("multer");
 const ffmpeg = require("fluent-ffmpeg");
 import { path } from "path";
 import { VideoService } from "../service/videoService";
 import { loginRequired } from "../middlewares/loginRequired";
+import { SubscriberService } from "../service/subscriberService";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -26,9 +26,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("file");
 
 const videoRouter = Router();
-//videoRouter.use(loginRequired);
-videoRouter.use(loginRequired);
-videoRouter.post("/video/upload", async (req, res) => {
+
+videoRouter.post("/video/upload", loginRequired, async (req, res) => {
   //비디오를 서버에 업로드
   upload(req, res, (err) => {
     if (err) {
@@ -42,7 +41,7 @@ videoRouter.post("/video/upload", async (req, res) => {
   });
 });
 
-videoRouter.post("/video/thumbnail", async (req, res) => {
+videoRouter.post("/video/thumbnail", loginRequired, async (req, res) => {
   //썸네일 사진 추출해서 저장
   let thumbsFilePath = "";
   let fileDuration = "";
@@ -81,7 +80,7 @@ videoRouter.post("/video/thumbnail", async (req, res) => {
     });
 });
 
-videoRouter.post("/video/uploadVideo", async (req, res) => {
+videoRouter.post("/video/uploadVideo", loginRequired, async (req, res) => {
   //비디오 정보들을 저장
   try {
     VideoService.create(req.body);
@@ -103,7 +102,7 @@ videoRouter.get("/video/getVideos", async (req, res) => {
 });
 
 videoRouter.get("/video/getVideoDetail/:id", async (req, res) => {
-  //비디오 DB에서 가져와서 보내기
+  //비디오 DB에서 상세정보 가져와서 보내기
   try {
     const id = req.params.id;
     const video = await VideoService.getVideoDetail(id);
@@ -112,4 +111,20 @@ videoRouter.get("/video/getVideoDetail/:id", async (req, res) => {
     return res.json({ success: false });
   }
 });
+
+videoRouter.post(
+  "/video/getSubscriptionVideos",
+  loginRequired,
+  async (req, res) => {
+    //유저 id로 유저의 구독자의 id를 전부 가져온다
+    const user = req.body.userId;
+    const subscriberInfo = await SubscriberService.subscribers(user);
+    let subscribedUser = [];
+    subscriberInfo.map((subscriber, i) => {
+      subscribedUser.push(subscriber.userTo);
+    });
+    const videos = await VideoService.getVideoByWriter(subscribedUser);
+    res.status(200).json(videos);
+  }
+);
 export { videoRouter };

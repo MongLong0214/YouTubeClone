@@ -29,6 +29,12 @@ class SubscriberModel {
   static delete = async (userTo, userFrom) => {
     Subscriber.findOneAndDelete({ userTo: userTo, userFrom: userFrom });
   };
+
+  //구독한 정보 찾기
+  static findSubscriber = async (userFrom) => {
+    const subscribed = await Subscriber.find({ userFrom: userFrom });
+    return subscribed;
+  };
 }
 
 export { SubscriberModel };
