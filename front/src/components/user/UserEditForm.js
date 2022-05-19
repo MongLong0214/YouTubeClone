@@ -185,7 +185,7 @@ const RegisterFrom = () => {
                 <ColorButton
                   variant="outlined"
                   style={{ width: '35%' }}
-                  disabled={!isFormValid}
+                  //   disabled={!isFormValid}
                   onClick={handleSubmit}
                 >
                   Sign-up
