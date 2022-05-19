@@ -29,14 +29,14 @@ commentRouter.get("/comments/:comment_id", async (req, res) => {
 });
 
 // 비디오에 해당하는 댓글 모두 조회
-commentRouter.get("/:video_id/comments", async (req, res) => {
+commentRouter.get("/:video_id/comments", async (req, res, next) => {
   try {
     const video_id = req.params.video_id;
     CommentService.getComments(video_id).then((comments) => {
       res.status(200).json({ success: true, comments });
     });
   } catch (err) {
-    return res.json({ success: false });
+    next(err);
   }
 });
 
