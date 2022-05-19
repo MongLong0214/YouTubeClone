@@ -1,10 +1,6 @@
-// 사이드 바 컴퍼넌트, 원래 컴퍼넌트위에 불러와 사용하시면 됩니다. 아래는 예시.
-// <SideBar /> 
-// <VideoFoleder />
-
 import React from 'react'
 import 'antd/dist/antd.css'; 
-import { Row, Col, Layout, Menu, Image, PageHeader, Card, Button } from 'antd';
+import { Row, Col, Layout, Menu, } from 'antd';
 import {
   HomeOutlined,
   SearchOutlined,
@@ -24,10 +20,7 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const { Header, Content, Footer, Sider } = Layout;
-
-const { Meta } = Card;
-
+const { Header, Sider } = Layout;
 
 const items = [
   
