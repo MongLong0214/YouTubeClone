@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import * as Api from "../../api";
+import * as Api from '../../api';
 // Mui
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Container from "@mui/material/Container";
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
 
-import { validateEmail } from "../../helpers/index";
+import { validateEmail } from '../../helpers/index';
 
 // import recoil
-import { useSetRecoilState } from "recoil";
-import { tokenState, userState } from "../../atom";
+import { useSetRecoilState } from 'recoil';
+import { tokenState, userState } from '../../atom';
 
 // import styled compo
-import { ValidationTextField, ColorButton } from "../../styledCompo/muiCustom";
+import { ValidationTextField, ColorButton } from '../../styledCompo/muiCustom';
 import {
   LoginGlass,
   TitleText,
   ForgetPw,
   SignPWContainer,
   SignBtn,
-} from "../../styledCompo/LoginStyle";
+} from '../../styledCompo/LoginStyle';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -30,9 +30,9 @@ const LoginForm = () => {
   const setToken = useSetRecoilState(tokenState);
   const setUser = useSetRecoilState(userState);
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   //useState로 password 상태를 생성함.
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   // input 상태관리
   const [checkLogin, setCheckLogin] = useState(true);
 
@@ -50,7 +50,7 @@ const LoginForm = () => {
 
     try {
       // "user/login" 엔드포인트로 post요청함.
-      const res = await Api.post("login", {
+      const res = await Api.post('login', {
         email,
         password,
       });
@@ -59,23 +59,23 @@ const LoginForm = () => {
       // JWT 토큰은 유저 정보의 token임.
       const jwtToken = user.token;
       // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
-      sessionStorage.setItem("userToken", jwtToken);
+      sessionStorage.setItem('userToken', jwtToken);
 
       setToken(user.token);
       setUser(user);
+
       // 기본 페이지로 이동함.
-      navigate("/", { replace: true });
+      navigate('/', { replace: true });
     } catch (err) {
       if (
-        err.response.data.errorMessage ===
-        "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요."
+        err.response.data.errorMessage === '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.'
       ) {
-        alert("Passwords do not match. Please check again.");
+        alert('Passwords do not match. Please check again.');
       } else if (
         err.response.data.errorMessage ===
-        "가입 내역이 없는 이메일입니다. 다시 한 번 확인해 주세요."
+        '가입 내역이 없는 이메일입니다. 다시 한 번 확인해 주세요.'
       ) {
-        alert("This email has no subscription history. Please check again.");
+        alert('This email has no subscription history. Please check again.');
       }
     }
   };
@@ -84,9 +84,9 @@ const LoginForm = () => {
     <div>
       <Container
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           marginTop: 220,
         }}
       >
@@ -95,10 +95,10 @@ const LoginForm = () => {
             action="/"
             onSubmit={handleSubmit}
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexFlow: "column",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexFlow: 'column',
               marginBottom: 40,
             }}
           >
@@ -106,7 +106,7 @@ const LoginForm = () => {
             <TitleText>Login</TitleText>
             <Box
               sx={{
-                width: "438px",
+                width: '438px',
               }}
               noValidate
               autoComplete="off"
@@ -118,9 +118,7 @@ const LoginForm = () => {
                 autoFocus
                 // {!checkLogin && error}
                 helperText={
-                  (!isEmailValid && (
-                    <span>The email format is not valid.</span>
-                  )) ||
+                  (!isEmailValid && <span>The email format is not valid.</span>) ||
                   (!checkLogin && <span>Invalid email.</span>)
                 }
                 id="outlined-required"
@@ -137,9 +135,7 @@ const LoginForm = () => {
               <ValidationTextField
                 // style={{ width: 438 }}
                 helperText={
-                  (!isPasswordValid && (
-                    <span> Password is more than 4 characters. </span>
-                  )) ||
+                  (!isPasswordValid && <span> Password is more than 4 characters. </span>) ||
                   (!checkLogin && <span>Invalid password.</span>)
                 }
                 id="outlined-password-input"
@@ -158,14 +154,14 @@ const LoginForm = () => {
                 <ForgetPw
                   sx={{ fontSize: 16 }}
                   color="success"
-                  onClick={() => navigate("/password/init")}
+                  onClick={() => navigate('/password/init')}
                 >
                   Forget Password?
                 </ForgetPw>
                 <SignBtn
                   sx={{ fontSize: 16 }}
                   color="success"
-                  onClick={() => navigate("/register")}
+                  onClick={() => navigate('/register')}
                 >
                   Sign-up
                 </SignBtn>
@@ -175,9 +171,9 @@ const LoginForm = () => {
                 spacing={1}
                 direction="row"
                 sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
                 <ColorButton
@@ -189,7 +185,7 @@ const LoginForm = () => {
                   Sign-in
                 </ColorButton>
 
-                <ColorButton variant="outlined" onClick={() => navigate("/")}>
+                <ColorButton variant="outlined" onClick={() => navigate('/')}>
                   Back
                 </ColorButton>
               </Stack>
@@ -198,11 +194,11 @@ const LoginForm = () => {
 
           <Box
             sx={{
-              width: "438px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexFlow: "column",
+              width: '438px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexFlow: 'column',
             }}
           ></Box>
         </LoginGlass>

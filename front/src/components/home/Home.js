@@ -1,13 +1,13 @@
 import React from "react";
 
 import Navbar from "../../NavBar/NavBar";
-import Header from "../../Header";
+// import Header from "../../Header";
 
 const Home = () => {
   return (
     <div>
-      {/* <Navbar></Navbar> */}
-      <Header></Header>>
+      <Navbar></Navbar>
+      {/* <Header></Header> */}
     </div>
   );
 };

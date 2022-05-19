@@ -30,3 +30,43 @@ loginRouter.get("/verify", verifyToken, (req, res) => {
   });
 });
 export { loginRouter };
+
+loginRouter.put("/login", verifyToken, async (req, res, next) => {
+  try {
+    const { email, password, name } = req.body;
+    const userId = req.user;
+    const updatedUser = await loginService.update({
+      email,
+      password,
+      name,
+      userId,
+    });
+
+    if (updatedUser.errorMessage) {
+      throw new Error(updatedUser.errorMessage);
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      message: error.message,
+    });
+    next();
+  }
+});
+
+loginRouter.delete("/login", verifyToken, async (req, res, next) => {
+  try {
+    const userId = req.user;
+    const deletedUser = await loginService.delete({ userId });
+
+    if (deletedUser.errorMessage) {
+      throw new Error(deletedUser.errorMessage);
+    }
+
+    res.status(200).json(deletedUser);
+  } catch (error) {
+    next();
+  }
+});
