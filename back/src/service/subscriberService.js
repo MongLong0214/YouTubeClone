@@ -2,22 +2,22 @@ import { SubscriberModel } from "../db/model/Subscriber";
 
 class SubscriberService {
   //구독하기
-  static subscribe = () => {
-    SubscriberModel.subscribe();
+  static subscribe = (subscribeData) => {
+    SubscriberModel.create(subscribeData);
   };
-  // 내 체널을 구독한 사람 수 (유튜브는 나를 구독한 사람수 만 알 수 있음)
-  static subscriberNum = async () => {
-    const subscriberNum = await SubscriberModel.get();
+  // 구독자 수(구독을 누르면 해당 채널의 id가 userTo에 저장 -> userTo를 찾으면 구독자수 계산 가능)
+  static subscriberNum = async (userTo) => {
+    const subscriberNum = await SubscriberModel.findNum(userTo);
     return subscriberNum.length;
   };
-  // 내가 구독한 사람들
-  static subscribed = async () => {
-    const subscribed = await SubscriberModel.get();
+  // 구독 했는지 여부 확인
+  static subscribed = async (userTo, userFrom) => {
+    const subscribed = await SubscriberModel.findById(userTo, userFrom);
     return subscribed;
   };
   // 구독 취소하기
-  static unsubscribe = async () => {
-    SubscriberModel.delete();
+  static unsubscribe = async (userTo, userFrom) => {
+    SubscriberModel.delete(userTo, userFrom);
   };
 }
 

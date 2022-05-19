@@ -19,7 +19,7 @@ class CommentModel {
 
   // 전체 댓글 조회
   static getAll = async (video_id) => {
-    const comments = await Comment.findAll(video_id).populate("writer");
+    const comments = await Comment.find(video_id).populate("writer");
     return comments;
   };
 
