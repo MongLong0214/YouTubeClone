@@ -53,6 +53,7 @@ class loginService {
 
   static delete = async ({ userId }) => {
     const user = await UserModel.findById({ id: userId });
+
     if (!user) {
       const errorMessage =
         "해당 이메일로 가입된 유저가 없습니다. 다시 한 번 확인 해주세요";
