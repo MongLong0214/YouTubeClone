@@ -1,5 +1,6 @@
 import { UserModel } from "./model/User";
 import { VideoModel } from "./model/Video";
+import { CommentModel } from "./model/Comment";
 import { SubscriberModel } from "./model/Subscriber";
 import mongoose from "mongoose";
 
@@ -13,4 +14,4 @@ mongoose
   .then(() => console.log(`${MONGO} connected on!`))
   .catch(() => console.log("몽고 DB연결 실패 ㅠㅠ"));
 
-export { UserModel, VideoModel, SubscriberModel };
+export { UserModel, VideoModel, SubscriberModel, CommentModel };
