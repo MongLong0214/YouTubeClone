@@ -68,7 +68,7 @@ videoRouter.post("/video/thumbnail", loginRequired, async (req, res) => {
     })
     .on("error", function (err) {
       console.error(err);
-      return res, json({ success: false, err });
+      return res.json({ success: false, err });
     })
     .screenshots({
       // Will take screens at 20%, 40%, 60% and 80% of the video

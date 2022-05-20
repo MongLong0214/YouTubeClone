@@ -11,7 +11,7 @@ const verifyToken = async (req, res, next) => {
         message: "token이 없습니다",
       });
     } else {
-      const JWT_KEY = process.env.JWT_KEY;
+      const JWT_KEY = process.env.JWT_SECRET_KEY;
       const token = req.headers["authorization"].split(" ")[1];
       const decoded = jwt.verify(token, JWT_KEY);
       req.user = decoded.userId;

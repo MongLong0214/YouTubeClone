@@ -4,10 +4,10 @@ import { SubscriberService } from "../service/subscriberService";
 
 const subscriberRouter = Router();
 
-subscriberRouter.use(loginRequired);
+// subscriberRouter.use(loginRequired);
 
 // 구독하기
-subscriberRouter.post("/subscribe", async (req, res) => {
+subscriberRouter.post("/subscribe", loginRequired, async (req, res) => {
   try {
     SubscriberService.subscribe(req.body);
     return res.status(201).json({ success: true });
@@ -17,7 +17,7 @@ subscriberRouter.post("/subscribe", async (req, res) => {
 });
 
 // 구독 취소하기
-subscriberRouter.delete("/unsubscribe", async (req, res) => {
+subscriberRouter.delete("/unsubscribe", loginRequired, async (req, res) => {
   try {
     const { userTo, userFrom } = req.body;
     SubscriberService.unsubscribe(userTo, userFrom);
@@ -28,7 +28,7 @@ subscriberRouter.delete("/unsubscribe", async (req, res) => {
 });
 
 // 구독자수
-subscriberRouter.get("/subscriberNum", async (req, res) => {
+subscriberRouter.get("/subscriberNum", loginRequired, async (req, res) => {
   try {
     const userTo = req.body.userTo;
     SubscriberService.subscriberNum(userTo).then((subscriberNum) => {
@@ -40,7 +40,7 @@ subscriberRouter.get("/subscriberNum", async (req, res) => {
 });
 
 // 구독 했는지 여부
-subscriberRouter.get("/subscribed", async (req, res) => {
+subscriberRouter.get("/subscribed", loginRequired, async (req, res) => {
   try {
     const { userTo, userFrom } = req.body;
     const subscribed = SubscriberService.subscribed(userTo, userFrom);

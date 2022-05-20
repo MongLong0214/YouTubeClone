@@ -7,7 +7,6 @@ class loginService {
   // login 하기
   static login = async ({ email, password }) => {
     let user = await UserModel.findByEmail({ email });
-
     const hashedPassword = hashPassword(password);
 
     if (!user) {
@@ -40,7 +39,7 @@ class loginService {
         "해당 이메일로 가입된 유저가 없습니다. 다시 한 번 확인해 주세요";
       return { errorMessage };
     }
-    const filter = { id: userId };
+    const filter = { _id: userId };
 
     if (password) {
       const hashedPassword = hashPassword(password);

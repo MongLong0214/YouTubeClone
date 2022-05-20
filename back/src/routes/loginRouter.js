@@ -21,7 +21,7 @@ loginRouter.post("/login", async (req, res, next) => {
       status: "fail",
       message: error.message,
     });
-    next();
+    next(error);
   }
 });
 
@@ -29,6 +29,7 @@ loginRouter.put("/login", verifyToken, async (req, res, next) => {
   try {
     const { email, password, name } = req.body;
     const userId = req.user;
+
     const updatedUser = await loginService.update({
       email,
       password,
@@ -46,7 +47,7 @@ loginRouter.put("/login", verifyToken, async (req, res, next) => {
       status: "fail",
       message: error.message,
     });
-    next();
+    next(error);
   }
 });
 
@@ -61,7 +62,7 @@ loginRouter.delete("/login", verifyToken, async (req, res, next) => {
 
     res.status(200).json(deletedUser);
   } catch (error) {
-    next();
+    next(error);
   }
 });
 
