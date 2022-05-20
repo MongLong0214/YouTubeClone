@@ -1,13 +1,14 @@
 import React from "react";
 
-import Navbar from "../../NavBar/NavBar";
-// import Header from "../../Header";
+import SideBar from "../../NavBar/SideBar"
+import Subscribe from "../../NavBar/Subscribe"
+import Header from "../../Header";
 
 const Home = () => {
   return (
     <div>
-      <Navbar></Navbar>
-      {/* <Header></Header> */}
+      <SideBar/>
+      <Subscribe/>
     </div>
   );
 };

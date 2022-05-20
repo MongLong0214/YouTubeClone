@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import * as api from '../api'
 import 'antd/dist/antd.css'; 
 import { Layout, Image, PageHeader, Card, Button } from 'antd';
 
@@ -105,14 +106,14 @@ const SubScribe = () => {
 
 // Api, 영상 전체 받아옴, videoList에 저장함. [getVideoList 함수]
 
-//   const getVideoList = async() => {
+  // const getVideoList = async() => {
 
-//   const res = await Api.get("video/getVideos")
-//   setVideoList(res.data)
+  // const res = await api.get("video/getVideos")
+  // setVideoList(res.data)
   
-// }
+  // }
 
-  // getVideoList 함수가 랜더링시 실행되게 함. 
+  //getVideoList 함수가 랜더링시 실행되게 함. 
 
   // useEffect(() => {getVideoList()}, [videoList])
 

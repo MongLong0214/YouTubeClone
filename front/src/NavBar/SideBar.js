@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import 'antd/dist/antd.css'; 
 import { Row, Col, Layout, Menu, } from 'antd';
 import {
@@ -9,6 +10,8 @@ import {
   LikeOutlined,
   LoginOutlined,
   UploadOutlined,
+  CustomerServiceOutlined,
+
 } from '@ant-design/icons';
 
 function getItem(label, key, icon, children) {
@@ -22,28 +25,39 @@ function getItem(label, key, icon, children) {
 
 const { Header, Sider } = Layout;
 
-const items = [
+
+
+
+const SideBar = () => {
   
-  getItem('홈', '1', <HomeOutlined/>),
-  getItem('탐색', '2', <SearchOutlined/>),
-  getItem('보관함', '3', <InboxOutlined/>),
-  getItem('좋아요 동영상', '4', <LikeOutlined/>),
-  getItem('구독', 'sub1', <YoutubeOutlined/>, [
-    getItem('LCK', '5'),
-    getItem('G-Movie', '6'),
-  ]),
+  const navigate = useNavigate()
+  
+  const items = [
+  
+    getItem('홈', '1', <HomeOutlined/>),
+    getItem('탐색', '2', <SearchOutlined/>),
+    getItem('보관함', '3', <InboxOutlined/>),
+    getItem('좋아요 동영상', '4', <LikeOutlined/>),
+    getItem('구독', 'sub1', <YoutubeOutlined/>, [
+      getItem('LCK', '5'),
+      getItem('G-Movie', '6'),
+    ]),
+  
+  ]
+  
+  const items2 = [
+  
+    getItem('회원가입', '/register', <CustomerServiceOutlined />),
+    getItem('로그인', '/login', <LoginOutlined />),
+  
+  ]
 
-]
-
-const items2 = [
-
-  getItem('업로드', '1', <UploadOutlined/>),
-  getItem('로그인', '2', <LoginOutlined />),
-
-]
+  const onClick = (e) => {
+    navigate(e.key)
+  }
 
 
-const SideBar = () => (
+  return (
 
   <>
   <Layout hasSider>
@@ -59,7 +73,7 @@ const SideBar = () => (
     }}
   >
     <div className="logo" />
-    <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
+    <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items}/>
   </Sider>
   </Layout>
   
@@ -78,7 +92,7 @@ const SideBar = () => (
       <Row>
         <Col flex="auto"></Col>
         <Col flex="200px">
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['4']} items={items2} />
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['4']} items={items2} onClick={onClick}/>
         </Col>
 
       </Row>
@@ -86,6 +100,7 @@ const SideBar = () => (
   </Layout>
   </>
 
-)
+  )
+}
 
 export default SideBar

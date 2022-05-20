@@ -5,6 +5,7 @@ import RegisterForm from '../src/components/user/RegisterFrom';
 import LoginForm from '../src/components/user/LoginForm';
 import UserEditForm from '../src/components/user/UserEditForm';
 import VideoDetailPage from './components/video/VideoDetailPage';
+import VideoList from './components/video/VideoList';
 
 function App() {
   const location = useLocation();
@@ -20,7 +21,9 @@ function App() {
       <Route path="/login" element={<LoginForm />} />
       <Route path="/userEdit" element={<UserEditForm />} />
       <Route path="/video/:id" element={<VideoDetailPage />} />
+      <Route path="/videoList" element={<VideoList />} />
       <Route path="*" element={<Home />} />
+      
     </Routes>
   );
 }
