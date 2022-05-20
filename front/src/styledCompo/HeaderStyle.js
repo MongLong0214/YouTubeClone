@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
   position: fixed;
@@ -8,9 +8,9 @@ export const HeaderContainer = styled.header`
   display: inline-flex;
 `;
 
-// export const HeaderLeftContainer = styled.img`
-//   width: 50%;
-// `;
+export const Upload = styled.button`
+  width: 100px;
+`;
 
 export const HeaderLogo = styled.img`
   margin-left: 30px;

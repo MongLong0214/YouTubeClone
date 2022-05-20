@@ -21,14 +21,14 @@ import { RedSpan } from '../../styledCompo/LoginStyle';
 
 // import recoil
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { userInfoState } from '../../atom';
+import { userInfoState, userState } from '../../atom';
 
 const RegisterFrom = () => {
   const navigate = useNavigate();
 
   //@ 전역 유저 정보
   const user = useRecoilValue(userInfoState);
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [userState, setUserState] = useRecoilState(userState);
 
   //useState로 name 상태를 생성함.
   const [name, setName] = useState('');
@@ -46,8 +46,8 @@ const RegisterFrom = () => {
     try {
       await Api.put('login', {
         email,
-        name,
         password,
+        name,
       });
 
       // 로그인 페이지로 이동함.
@@ -69,8 +69,6 @@ const RegisterFrom = () => {
 
   ///@ 조건이 모두 동시에 만족되는지 여부를 확인함.
   const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
-
-  console.log(user.email);
 
   return (
     <div>
@@ -185,7 +183,7 @@ const RegisterFrom = () => {
                 <ColorButton
                   variant="outlined"
                   style={{ width: '35%' }}
-                  disabled={!isFormValid}
+                  //   disabled={!isFormValid}
                   onClick={handleSubmit}
                 >
                   Sign-up
