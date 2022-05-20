@@ -19,6 +19,11 @@ class SubscriberService {
   static unsubscribe = async (userTo, userFrom) => {
     SubscriberModel.delete(userTo, userFrom);
   };
+  // 구독한 정보 찾기
+  static subscribers = async (userFrom) => {
+    const subscribed = await SubscriberModel.findSubscriber(userFrom);
+    return subscribed;
+  };
 }
 
 export { SubscriberService };
