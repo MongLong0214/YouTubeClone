@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import * as api from '../api'
 import 'antd/dist/antd.css'; 
-import { Layout, Image, PageHeader, Card, Button } from 'antd';
+import { Layout, PageHeader, Card, Button } from 'antd';
 
 const { Content } = Layout;
 
@@ -25,7 +25,7 @@ const cardimageStyle = {
 
 
 
-const SubScribe = () => {
+const LikeVideo = () => {
 
   // 영상리스트 저장을 위한 useState, 아래는 예시 데이터.
 
@@ -174,14 +174,10 @@ return (
   <PageHeader
     className="subscribe-page-header"
     ghost={false}
-    title="LCK"
-    subTitle="구독자 71.1만명"
+    title="좋아요"
+    subTitle="총 3개"
     avatar={{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }}
-    extra={[
-      <Button key="1" type="primary">
-        구독 취소
-      </Button>,
-    ]}
+    extra={[]}
   />
   <Card>  
     {/* 아래는 맵함수  */}
@@ -191,4 +187,4 @@ return (
   </Content>
 )}
 
-export default SubScribe
+export default LikeVideo
