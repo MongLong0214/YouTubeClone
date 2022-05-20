@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use(registerRouter);
 app.use(loginRouter);
+
 app.use(commentRouter);
 app.use(videoRouter);
 export { app };

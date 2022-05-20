@@ -14,3 +14,4 @@ mongoose
   .catch(() => console.log("몽고 DB연결 실패 ㅠㅠ"));
 
 export { UserModel, VideoModel, CommentModel };
+//

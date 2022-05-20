@@ -1,5 +1,5 @@
 import { CommentModel } from "../db/model/Comment";
-
+// comment
 class CommentService {
   static create = (comment) => {
     CommentModel.create(comment);

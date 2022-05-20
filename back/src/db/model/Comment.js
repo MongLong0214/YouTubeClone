@@ -1,5 +1,5 @@
 import { Comment } from "../schema/comment";
-// dao와 같은 기능
+// dao와 같은기능
 class CommentModel {
   // 댓글 작성
   static create = ({ writer, video_id, content }) => {
