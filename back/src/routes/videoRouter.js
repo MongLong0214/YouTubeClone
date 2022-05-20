@@ -48,7 +48,7 @@ videoRouter.post("/video/thumbnail", loginRequired, async (req, res) => {
 
   ffmpeg.ffprobe(req.body.url, function (err, metadata) {
     console.log(req.body.url);
-    console.dir(metadata);
+    console.log(ffmpeg.ffprobe);
     console.log(metadata.format.duration);
     fileDuration = metadata.format.duration;
   });
