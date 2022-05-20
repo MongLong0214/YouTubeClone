@@ -1,17 +1,13 @@
 import { model, Schema } from "mongoose";
 // 몽고DB에서 자동으로 _id 생성되어 저장됨 -> ObjectId
-const CommentSchema = new Schema({
-  writer: {
+const SubscriberSchema = new Schema({
+  userTo: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  video_id: {
+  userFrom: {
     type: Schema.Types.ObjectId,
-    ref: "Video",
-  },
-  content: {
-    type: String,
-    required: true,
+    ref: "User",
   },
   // created_at: {
   //   type: Date,
@@ -20,6 +16,6 @@ const CommentSchema = new Schema({
   // },
 });
 
-const Comment = model("Comment", CommentSchema);
+const Subscriber = model("Subscriber", SubscriberSchema);
 
-export { Comment };
+export { Subscriber };
