@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-// import { useAlert } from 'react-alert';
-
-import Container from '@mui/material/Container';
-
-import { validateEmail } from '../../helpers/index';
+// import recoil
+import { useSetRecoilState, useRecoilState } from 'recoil';
+import { tokenState, userState, userInfoState } from '../../atom';
 
 import * as Api from '../../api';
+
+// import { useAlert } from 'react-alert';
+import Container from '@mui/material/Container';
 
 // Mui
 import { Box } from '@mui/material';
@@ -19,56 +19,51 @@ import { ValidationTextField, ColorButton } from '../../styledCompo/muiCustom';
 import { RegisterGlass, RegisterTitle } from '../../styledCompo/RegisterStyle';
 import { RedSpan } from '../../styledCompo/LoginStyle';
 
-// import recoil
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { userInfoState, userState } from '../../atom';
-
 const RegisterFrom = () => {
+  //@ 전역 유저 정보
+
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [editUser, setEditUser] = useState(userInfo);
+
   const navigate = useNavigate();
 
-  //@ 전역 유저 정보
-  const user = useRecoilValue(userInfoState);
-  const [userState, setUserState] = useRecoilState(userState);
+  console.log(userInfo);
+  // console.log(setUser);
 
   //useState로 name 상태를 생성함.
   const [name, setName] = useState('');
-  //useState로 email 상태를 생성함.
-  const [email, setEmail] = useState('');
-  //useState로 password 상태를 생성함.
-  const [password, setPassword] = useState('');
-  //useState로 confirmPassword 상태를 생성함.
-  const [confirmPassword, setConfirmPassword] = useState('');
-  // const Alert = useAlert();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       await Api.put('login', {
-        email,
-        password,
-        name,
+        email: userInfo.email,
+        name: editUser.name,
+        userId: userInfo._id,
       });
 
       // 로그인 페이지로 이동함.
       navigate('/login');
-      alert('You have successfully registered as a member.');
+      alert('You have successfully changed your account.');
     } catch (err) {
-      alert('This email is currently in use. Please enter another email.');
+      alert('failed.');
     }
   };
 
-  //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
-  const isEmailValid = validateEmail(email);
-  // 비밀번호가 4글자 이상인지 여부를 확인함.
-  const isPasswordValid = password.length >= 4;
-  // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.
-  const isPasswordSame = password === confirmPassword;
   // 이름이 2글자 이상인지 여부를 확인함.
   const isNameValid = name.length >= 2;
 
   ///@ 조건이 모두 동시에 만족되는지 여부를 확인함.
-  const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
+  const isFormValid = isNameValid;
+
+  //회원탈퇴
+  const userDelete = async (e) => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      await Api.delete('login');
+      await navigate('/main');
+    } else return;
+  };
 
   return (
     <div>
@@ -78,10 +73,10 @@ const RegisterFrom = () => {
           justifyContent: 'center',
           alignItems: 'center',
           flexFlow: 'column',
-          marginTop: 160,
+          paddingTop: 250,
         }}
       >
-        <RegisterGlass>
+        <RegisterGlass style={{ height: '400px' }}>
           <form
             onSubmit={handleSubmit}
             style={{
@@ -116,44 +111,10 @@ const RegisterFrom = () => {
                   id="outlined-required"
                   label="Email Address"
                   autoComplete="email"
-                  value={user.email}
+                  value={editUser.email}
                   style={{ marginBottom: 20 }}
                 />
 
-                {/* ///@ 비밀번호 */}
-                <ValidationTextField
-                  required
-                  // error={!checkLogin}
-                  id="outlined-password-input"
-                  label="Password"
-                  type="password"
-                  autoComplete="current-password"
-                  value={password}
-                  helperText={
-                    !isPasswordValid && <RedSpan> Password is more than 4 characters. </RedSpan>
-                  }
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    // setCheckLogin(true);
-                  }}
-                  style={{ marginBottom: 20 }}
-                />
-                <br></br>
-                {/* ///@ 비밀번호 확인 */}
-                <ValidationTextField
-                  required
-                  // error={!checkLogin}
-                  label="Confirm Password"
-                  type="password"
-                  autoComplete="current-password"
-                  value={confirmPassword}
-                  helperText={!isPasswordSame && <RedSpan> Passwords do not match. </RedSpan>}
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                    // setCheckLogin(true);
-                  }}
-                  style={{ marginBottom: 20 }}
-                />
                 <br></br>
                 {/* ///@ 닉네임 */}
                 <ValidationTextField
@@ -162,9 +123,9 @@ const RegisterFrom = () => {
                   helperText={
                     !isNameValid && <RedSpan>Please set the name at least 2 characters.</RedSpan>
                   }
-                  value={name}
+                  value={editUser.name}
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setEditUser((prev) => ({ ...prev, name: e.target.value }));
                     // setCheckLogin(true);
                   }}
                 />
@@ -186,7 +147,7 @@ const RegisterFrom = () => {
                   //   disabled={!isFormValid}
                   onClick={handleSubmit}
                 >
-                  Sign-up
+                  Confirm
                 </ColorButton>
                 <ColorButton
                   variant="outlined"
@@ -194,6 +155,13 @@ const RegisterFrom = () => {
                   onClick={() => navigate('/login')}
                 >
                   Back
+                </ColorButton>
+                <ColorButton
+                  variant="contained"
+                  style={{ width: '35%', backgroundColor: '#ffb400' }}
+                  onClick={userDelete}
+                >
+                  회원탈퇴
                 </ColorButton>
               </Stack>
             </Box>
