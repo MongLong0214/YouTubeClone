@@ -1,4 +1,6 @@
 import { UserModel } from "./model/User";
+import { VideoModel } from "./model/Video";
+import { CommentModel } from "./model/Comment";
 import mongoose from "mongoose";
 
 import dotenv from "dotenv";
@@ -11,4 +13,4 @@ mongoose
   .then(() => console.log(`${MONGO} connected on!`))
   .catch(() => console.log("몽고 DB연결 실패 ㅠㅠ"));
 
-export { UserModel };
+export { UserModel, VideoModel, CommentModel };
