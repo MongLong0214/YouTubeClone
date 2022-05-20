@@ -14,6 +14,11 @@ class VideoService {
     const video = await VideoModel.findById(id);
     return video;
   };
+
+  static getVideoByWriter = async (writer) => {
+    const video = await VideoModel.findByWriter(writer);
+    return video;
+  };
 }
 
 export { VideoService };
