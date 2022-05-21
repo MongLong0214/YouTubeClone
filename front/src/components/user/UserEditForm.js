@@ -52,7 +52,7 @@ const RegisterFrom = () => {
   };
 
   // 이름이 2글자 이상인지 여부를 확인함.
-  const isNameValid = name.length >= 2;
+  const isNameValid = editUser.name.length >= 2;
 
   ///@ 조건이 모두 동시에 만족되는지 여부를 확인함.
   const isFormValid = isNameValid;
@@ -126,7 +126,6 @@ const RegisterFrom = () => {
                   value={editUser.name}
                   onChange={(e) => {
                     setEditUser((prev) => ({ ...prev, name: e.target.value }));
-                    // setCheckLogin(true);
                   }}
                 />
               </div>
@@ -147,18 +146,26 @@ const RegisterFrom = () => {
                   //   disabled={!isFormValid}
                   onClick={handleSubmit}
                 >
-                  Confirm
+                  확인
+                </ColorButton>
+                <ColorButton
+                  variant="outlined"
+                  style={{ width: '35%', fontSize: '1.2rem', lineHeight: '1.1' }}
+                  onClick={() => navigate('/pwEdit')}
+                >
+                  비밀번호 <br />
+                  변경
                 </ColorButton>
                 <ColorButton
                   variant="outlined"
                   style={{ width: '35%' }}
                   onClick={() => navigate('/login')}
                 >
-                  Back
+                  취소
                 </ColorButton>
                 <ColorButton
                   variant="contained"
-                  style={{ width: '35%', backgroundColor: '#ffb400' }}
+                  style={{ width: '35%', backgroundColor: '#ffb400', fontSize: '1.3rem' }}
                   onClick={userDelete}
                 >
                   회원탈퇴
