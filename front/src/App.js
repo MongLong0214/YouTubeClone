@@ -11,6 +11,8 @@ import SubScribePage from './NavBar/SubscribePage';
 import LikeVideoPage from './NavBar/LikeVideoPage';
 import MyVideoPage from './NavBar/MyVideoPage';
 import AlertPage from './NavBar/AlertPage';
+import VideoUploadPage from './components/VideoUploadPage/VideoUploadPage';
+import LandingPage from './components/LandingPage/LandingPage';
 
 function App() {
   const location = useLocation();
@@ -33,6 +35,9 @@ function App() {
       <Route path="/myVideoPage" element={<MyVideoPage />} />
       <Route path="/videoList" element={<VideoList />} />
       <Route path="/alertPage" element={<AlertPage />} />
+      <Route path="/video" element={<LandingPage />} />
+      <Route path="/video/upload" element={<VideoUploadPage />} />
+
       <Route path="*" element={<Home />} />
     </Routes>
   );
