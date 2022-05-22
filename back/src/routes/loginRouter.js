@@ -6,6 +6,7 @@ import { verifyToken } from "../middlewares/verifyToken";
 const loginRouter = Router();
 
 loginRouter.post("/login", async (req, res, next) => {
+  // user 생성
   try {
     const { email, password } = req.body;
     const User = await loginService.login({ email, password });
@@ -20,21 +21,15 @@ loginRouter.post("/login", async (req, res, next) => {
       status: "fail",
       message: error.message,
     });
+    next(error);
   }
 });
-
-loginRouter.get("/verify", verifyToken, (req, res) => {
-  res.status(200).json({
-    status: "succ",
-    userId: req.user,
-  });
-});
-export { loginRouter };
 
 loginRouter.put("/login", verifyToken, async (req, res, next) => {
   try {
     const { email, password, name } = req.body;
     const userId = req.user;
+
     const updatedUser = await loginService.update({
       email,
       password,
@@ -52,7 +47,7 @@ loginRouter.put("/login", verifyToken, async (req, res, next) => {
       status: "fail",
       message: error.message,
     });
-    next();
+    next(error);
   }
 });
 
@@ -67,6 +62,14 @@ loginRouter.delete("/login", verifyToken, async (req, res, next) => {
 
     res.status(200).json(deletedUser);
   } catch (error) {
-    next();
+    next(error);
   }
 });
+
+loginRouter.get("/verify", verifyToken, (req, res) => {
+  res.status(200).json({
+    status: "succ",
+    userId: req.user,
+  });
+});
+export { loginRouter };
