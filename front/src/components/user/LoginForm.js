@@ -10,8 +10,8 @@ import Container from '@mui/material/Container';
 import { validateEmail } from '../../helpers/index';
 
 // import recoil
-import { useSetRecoilState } from 'recoil';
-import { tokenState, userState } from '../../atom';
+import { useSetRecoilState, useRecoilState } from 'recoil';
+import { tokenState, userState, userInfoState } from '../../atom';
 
 // import styled compo
 import { ValidationTextField, ColorButton } from '../../styledCompo/muiCustom';
@@ -29,6 +29,7 @@ const LoginForm = () => {
   //@ 전역 유저 정보
   const setToken = useSetRecoilState(tokenState);
   const setUser = useSetRecoilState(userState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   const [email, setEmail] = useState('');
   //useState로 password 상태를 생성함.
@@ -57,14 +58,14 @@ const LoginForm = () => {
       // 유저 정보는 response의 data임.
       const user = res.data;
       // JWT 토큰은 유저 정보의 token임.
-
       setToken(user.accessToken);
       setUser(user);
+      setUserInfo(user);
       const jwtToken = user.accessToken;
       // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
-      console.log('user==>', user, 'token===>', user.accessToken)
+      console.log('user==>', user, 'token===>', user.accessToken);
+      console.log('UserInfo==>', userInfo);
       sessionStorage.setItem('userToken', jwtToken);
-
 
       // 기본 페이지로 이동함.
       navigate('/', { replace: true });
