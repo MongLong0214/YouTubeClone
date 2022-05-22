@@ -35,6 +35,7 @@ function VideoUploadPage(props) {
   const [Description, setDescription] = useState('');
   const [privacy, setPrivacy] = useState(0);
   const [Categories, setCategories] = useState('Film & Animation');
+
   const [FilePath, setFilePath] = useState('');
   const [Duration, setDuration] = useState('');
   const [Thumbnail, setThumbnail] = useState('');
@@ -76,7 +77,7 @@ function VideoUploadPage(props) {
     }
 
     const variables = {
-      writer: user.userData._id,
+      writer: user._id,
       title: title,
       description: Description,
       privacy: privacy,
@@ -89,9 +90,9 @@ function VideoUploadPage(props) {
     Api.post('video/uploadVideo', variables).then((response) => {
       if (response.data.success) {
         alert('video Uploaded Successfully');
-        props.history.push('/');
+        // props.history.push('/');
       } else {
-        alert('Failed to upload video');
+        alert('비디오 업로드 실패');
       }
     });
   };
@@ -129,9 +130,14 @@ function VideoUploadPage(props) {
           fileName: response.data.fileName,
         };
 
+        setFilePath(response.data.url);
+
         Axios.post('http://localhost:3001/video/thumbnail', variable).then((response) => {
           if (response.data.success) {
             console.log('썸네일 결과', response.data);
+            setDuration(response.data.fileDuration);
+
+            setThumbnail(response.data.url);
           } else {
             alert('썸네일 생성 실패');
           }
@@ -141,6 +147,9 @@ function VideoUploadPage(props) {
       }
     });
   };
+  console.log('FilePath', FilePath);
+  console.log('Duration', Duration);
+  console.log('Thumbnail', Thumbnail);
 
   //   const onDrop = (files) => {
   //     let formData = new FormData();
@@ -224,11 +233,11 @@ function VideoUploadPage(props) {
             )}
           </Dropzone>
 
-          {/* {Thumbnail !== '' && (
+          {Thumbnail && (
             <div>
-              <img src={`http://localhost:5001/${Thumbnail}`} alt="haha" />
+              <img src={`http://localhost:3001/${Thumbnail}`} alt="Thumbnail" />
             </div>
-          )} */}
+          )}
         </div>
 
         <br />
