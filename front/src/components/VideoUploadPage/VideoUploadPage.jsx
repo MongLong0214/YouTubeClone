@@ -96,7 +96,7 @@ function VideoUploadPage() {
 
         // 3초 후 메인페이지로 이동
         setTimeout(() => {
-          navigate('/video');
+          navigate('/');
         }, 3000);
       } else {
         alert('비디오 업로드 실패');
