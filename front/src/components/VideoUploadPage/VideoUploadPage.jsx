@@ -90,7 +90,7 @@ function VideoUploadPage() {
       thumbnail: Thumbnail,
     };
 
-    Api.post('video/uploadVideo', variables).then((response) => {
+    Axios.post('http://localhost:3001/video/uploadVideo', variables).then((response) => {
       if (response.data.success) {
         message.success('video Uploaded Successfully');
 
