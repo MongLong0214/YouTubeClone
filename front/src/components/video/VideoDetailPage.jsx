@@ -22,7 +22,7 @@ const VideoDetailPage = () => {
   };
   return (
     <div className="container">
-      <VideoDetail />
+      <VideoDetail video={selectedVideo} id={id}/>
       <VideoList onVideoSelect={handleSelect} />
     </div>
   );
