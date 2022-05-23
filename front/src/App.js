@@ -38,7 +38,7 @@ function App() {
       <Route path="/video" element={<LandingPage />} />
       <Route path="/video/upload" element={<VideoUploadPage />} />
 
-      <Route path="*" element={<Home />} />
+      {/* <Route path="*" element={<Home />} /> */}
     </Routes>
   );
 }

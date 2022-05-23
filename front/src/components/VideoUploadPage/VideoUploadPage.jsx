@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Typography, Button, Form, message, Input } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import Dropzone from 'react-dropzone';
@@ -24,12 +25,14 @@ const Catogory = [
   { value: 0, label: 'Sports' },
 ];
 
-function VideoUploadPage(props) {
+function VideoUploadPage() {
   const user = useRecoilValue(userInfoState);
   const token = useRecoilValue(tokenState);
   useEffect(() => {
     console.log(user);
   }, []);
+
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
   const [Description, setDescription] = useState('');
@@ -89,8 +92,12 @@ function VideoUploadPage(props) {
 
     Api.post('video/uploadVideo', variables).then((response) => {
       if (response.data.success) {
-        alert('video Uploaded Successfully');
-        // props.history.push('/');
+        message.success('video Uploaded Successfully');
+
+        // 3초 후 메인페이지로 이동
+        setTimeout(() => {
+          navigate('/video');
+        }, 3000);
       } else {
         alert('비디오 업로드 실패');
       }

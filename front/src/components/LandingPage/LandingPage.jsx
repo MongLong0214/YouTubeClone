@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Card, Avatar, Col, Typography, Row } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
+
 const { Title } = Typography;
 const { Meta } = Card;
+
 function LandingPage() {
   const [Videos, setVideos] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/video/getVideos').then((response) => {
-      if (response.data.success) {
+    axios.get('http://localhost:3001/video/getVideos').then((response) => {
+      if (response.data) {
         console.log(response.data.videos);
         setVideos(response.data.videos);
       } else {
@@ -29,7 +31,7 @@ function LandingPage() {
             <img
               style={{ width: '100%' }}
               alt="thumbnail"
-              src={`http://localhost:5000/${video.thumbnail}`}
+              src={`http://localhost:3001/${video.thumbnail}`}
             />
             <div
               className=" duration"
@@ -66,11 +68,11 @@ function LandingPage() {
   });
 
   return (
-    <div style={{ width: '85%', margin: '3rem auto' }}>
+    <div style={{ width: '75%', margin: '2rem auto' }}>
       <Title level={2}> Recommended </Title>
       <hr />
 
-      <Row gutter={16}>{renderCards}</Row>
+      <Row gutter={12}>{renderCards}</Row>
     </div>
   );
 }
