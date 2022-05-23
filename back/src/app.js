@@ -13,6 +13,7 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("uploads"));
 
 app.use(registerRouter);
 app.use(loginRouter);
