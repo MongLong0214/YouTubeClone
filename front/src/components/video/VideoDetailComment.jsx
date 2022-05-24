@@ -33,7 +33,9 @@ const VideoDetailComment = ({ id }) => {
   };
 
   const commentWriteHandler = async () => {
-    if (!content || content === "") {
+    if (!sessionStorage.getItem("userToken")) {
+      return alert("로그인이 필요한 서비스입니다.");
+    } else if (!content || content === "") {
       return alert("댓글 내용을 작성해주세요.");
     }
     try {
