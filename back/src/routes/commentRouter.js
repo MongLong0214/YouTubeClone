@@ -7,7 +7,7 @@ const commentRouter = Router();
 // commentRouter.use(loginRequired);
 
 // 댓글작성
-commentRouter.post("/comments/comment", async (req, res) => {
+commentRouter.post("/comment", async (req, res) => {
   try {
     CommentService.create(req.body);
     return res.status(201).json({ sucess: true });
