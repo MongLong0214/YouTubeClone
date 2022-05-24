@@ -25,7 +25,11 @@ class CommentModel {
     return comments;
   };
 
-  // 댓글 수정
+  // 댓글 삭제
+  static delete = async (id) => {
+    const comment = Comment.findOneAndDelete({ _id: id });
+    return comment;
+  };
 }
 
 export { CommentModel };

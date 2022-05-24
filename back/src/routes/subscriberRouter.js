@@ -17,7 +17,7 @@ subscriberRouter.post("/subscribe", loginRequired, async (req, res) => {
 });
 
 // 구독 취소하기
-subscriberRouter.delete("/unsubscribe", loginRequired, async (req, res) => {
+subscriberRouter.post("/unsubscribe", loginRequired, async (req, res) => {
   try {
     const { userTo, userFrom } = req.body;
     SubscriberService.unsubscribe(userTo, userFrom);

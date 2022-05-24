@@ -27,7 +27,11 @@ class SubscriberModel {
 
   // 구독 취소하기
   static delete = async (userTo, userFrom) => {
-    Subscriber.findOneAndDelete({ userTo: userTo, userFrom: userFrom });
+    const subscriber = Subscriber.findOneAndDelete({
+      userTo: userTo,
+      userFrom: userFrom,
+    });
+    return subscriber;
   };
 
   //구독한 정보 찾기

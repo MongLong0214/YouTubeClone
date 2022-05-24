@@ -39,4 +39,15 @@ commentRouter.post("/comments", async (req, res) => {
   }
 });
 
+// 댓글 삭제
+commentRouter.post("/commentsDelete", async (req, res) => {
+  try {
+    CommentService.deleteComment(req.body).then(
+      res.status(201).json({ success: true })
+    );
+  } catch (err) {
+    return res.json({ success: false });
+  }
+});
+
 export { commentRouter };

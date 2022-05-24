@@ -13,6 +13,9 @@ class CommentService {
     const comments = await CommentModel.getAll(video_id);
     return comments;
   };
+  static deleteComment = async (id) => {
+    CommentModel.delete(id);
+  };
 }
 
 export { CommentService };
