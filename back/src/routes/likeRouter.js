@@ -4,7 +4,7 @@ import { verifyToken } from "../middlewares/verifyToken";
 
 const likeRouter = Router();
 
-likeRouter.post("/like:id", verifyToken, async (req, res, next) => {
+likeRouter.post("/like/:id", verifyToken, async (req, res, next) => {
   try {
     const userId = req.user;
     const video_id = req.params.id;
@@ -21,6 +21,11 @@ likeRouter.post("/like:id", verifyToken, async (req, res, next) => {
     });
     next(error);
   }
+});
+
+likeRouter.get("/likeList", verifyToken, async (req, res, next) => {
+  const likeList = await LikeService.likeList();
+  res.status(200).json(likeList);
 });
 
 export { likeRouter };

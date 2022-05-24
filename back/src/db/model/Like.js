@@ -7,13 +7,18 @@ class LikeModel {
   };
 
   static findByUserAndVideoId = async ({ userId, video_id }) => {
-    const foundLike = await Like.findOne({ userId, video_id });
+    const foundLike = await Like.findOne({ userId });
     return foundLike;
   };
 
   static deleteLike = async ({ userId, video_id }) => {
     const deleteLike = await Like.findOneAndDelete({ userId, video_id });
     return deleteLike;
+  };
+
+  static likeList = async () => {
+    const likeList = await Like.find({});
+    return likeList;
   };
 }
 

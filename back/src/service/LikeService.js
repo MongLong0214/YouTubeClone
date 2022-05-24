@@ -10,8 +10,13 @@ class LikeService {
       const deleteLike = await LikeModel.deleteLike({ userId, video_id });
       return deleteLike;
     }
-    const newLike = await LikeModel.create(userId, video_id);
+    const newLike = await LikeModel.create({ userId, video_id });
     return newLike;
+  };
+
+  static likeList = async () => {
+    const likeList = await LikeModel.likeList();
+    return likeList;
   };
 }
 
