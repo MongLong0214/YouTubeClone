@@ -28,7 +28,7 @@ subscriberRouter.delete("/unsubscribe", loginRequired, async (req, res) => {
 });
 
 // 구독자수
-subscriberRouter.get("/subscriberNum", loginRequired, async (req, res) => {
+subscriberRouter.post("/subscriberNum", loginRequired, async (req, res) => {
   try {
     const userTo = req.body.userTo;
     SubscriberService.subscriberNum(userTo).then((subscriberNum) => {
@@ -40,7 +40,7 @@ subscriberRouter.get("/subscriberNum", loginRequired, async (req, res) => {
 });
 
 // 구독 했는지 여부
-subscriberRouter.get("/subscribed", loginRequired, async (req, res) => {
+subscriberRouter.post("/subscribed", loginRequired, async (req, res) => {
   try {
     const { userTo, userFrom } = req.body;
     const subscribed = SubscriberService.subscribed(userTo, userFrom);

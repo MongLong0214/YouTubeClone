@@ -17,7 +17,7 @@ commentRouter.post("/comments/comment", async (req, res) => {
 });
 
 // 댓글 1개 조회
-commentRouter.get("/comments/comment", async (req, res) => {
+commentRouter.post("/comments/comment", async (req, res) => {
   try {
     CommentService.getComment(req.body).then((comment) => {
       res.status(200).json({ success: true, comment });
@@ -28,7 +28,7 @@ commentRouter.get("/comments/comment", async (req, res) => {
 });
 
 // 비디오에 해당하는 댓글 모두 조회
-commentRouter.get("/comments", async (req, res) => {
+commentRouter.post("/comments", async (req, res) => {
   try {
     const video_id = req.body.video_id;
     CommentService.getComments(video_id).then((comments) => {
