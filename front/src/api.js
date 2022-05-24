@@ -1,16 +1,17 @@
 import axios from "axios";
 
-const backendPortNumber = "3001";
+const backendPortNumber = "5001";
 const serverUrl =
   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
 
-async function get(endpoint, params = "") {
+async function get(endpoint) {
   console.log(
-    `%cGET 요청 ${serverUrl + endpoint + "/" + params}`,
+    `%cGET 요청 ${serverUrl + endpoint}`,
     "color: #a25cd1;"
   );
+  console.log('api token=======>', sessionStorage.getItem('userToken'))
 
-  return axios.get(serverUrl + endpoint + "/" + params, {
+  return axios.get(serverUrl + endpoint, {
     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
