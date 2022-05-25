@@ -21,6 +21,9 @@ class LikeService {
     const likeList = await LikeModel.likeList();
     return likeList;
   };
+  static deleteAll = async (id) => {
+    LikeModel.deleteAll(id);
+  };
 }
 
 export { LikeService };
