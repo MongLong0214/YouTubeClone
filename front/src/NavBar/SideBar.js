@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { userState, userInfoState, tokenState } from '../../src/atom'
+import * as api from '../api'
 import 'antd/dist/antd.css';
 import { Row, Col, Layout, Menu } from 'antd';
 import {
@@ -24,16 +27,58 @@ function getItem(label, key, icon, children) {
 const { Header, Sider } = Layout;
 
 const SideBar = () => {
+  
   const navigate = useNavigate();
+  const [loginState, setLoginState] = useState(false)
+  const userToken = sessionStorage.getItem('userToken')
+    
+  const UserState = useRecoilValue(userState)
+  const setUserState = useSetRecoilState(userState)
+  const setTokenState = useSetRecoilState(tokenState)
+  const setUserInfostate = useSetRecoilState(userInfoState)
+    
+  const stateInitialization = () => {
+  
+    if(!userToken) {
+      setUserState({ user: null }) 
+      setTokenState({ token: null })  
+      setUserInfostate(undefined)  
+      } else {
+        setLoginState(true)
+        console.log(loginState)
+      }
+      
+    } 
 
+    useEffect(stateInitialization, [loginState, userToken, setUserState, setTokenState, setUserInfostate])
+
+    const [videoList, setVideoList] = useState([])
+    const userId = useRecoilValue(userState)._id
+    const userName = useRecoilValue(userState).name
+
+    useEffect(() => {
+      try {
+        api.post("video/getSubscriptionVideos", { 
+          userId: userId }).then((res) => setVideoList(res.data))
+    } catch(err) {
+        console.log(err.message)}
+    }, [userId])
+
+    let defaultName = ""
+    let subScribingNameList = []
+    for (let i=0; i<videoList.length; i++) {
+      if(defaultName !== videoList[i].writer.name){ 
+          defaultName = videoList[i].writer.name
+          const element = getItem(defaultName, `/subscribePage/${videoList[i].writer._id}`)
+          subScribingNameList.push(element)
+    }
+  } console.log(subScribingNameList)
+    
   const items = [
     getItem('홈', '/', <HomeOutlined />),
     getItem('보관함', '/myVideoPage', <InboxOutlined />),
     getItem('좋아요 동영상', '/likeVideoPage', <LikeOutlined />),
-    getItem('구독', 'sub1', <YoutubeOutlined />, [
-      getItem('LCK', '/subscribePage'),
-      getItem('G-Movie', '/subscribePage'),
-    ]),
+    getItem('구독', 'sub1', <YoutubeOutlined />, subScribingNameList),
   ];
 
   const items2 = [
@@ -45,6 +90,7 @@ const SideBar = () => {
   const onClick = (e) => {
     navigate(e.key);
   };
+
 
   return (
     <>
@@ -84,7 +130,7 @@ const SideBar = () => {
           }}
         >
           <Row>
-            <Col flex="auto"></Col>
+          <Col flex="auto"><span style={{color:"whitesmoke"}}>{loginState && `${UserState.name}님 환영합니다!`}</span></Col>
             <Col flex="330px">
               <Menu
                 theme="dark"

@@ -30,7 +30,7 @@ function App() {
       <Route path="/pwEdit" element={<ChangePwForm />} />
       <Route path="/video/:id" element={<VideoDetailPage />} />
       <Route path="/videoList" element={<VideoList />} />
-      <Route path="/subscribePage" element={<SubScribePage />} />
+      <Route path="/subscribePage/:subscribingId" element={<SubScribePage />} />
       <Route path="/likeVideoPage" element={<LikeVideoPage />} />
       <Route path="/myVideoPage" element={<MyVideoPage />} />
       <Route path="/videoList" element={<VideoList />} />
@@ -44,3 +44,5 @@ function App() {
 }
 
 export default App;
+
+
