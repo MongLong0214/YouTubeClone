@@ -11,6 +11,7 @@ import {
   YoutubeOutlined,
   LikeOutlined,
   LoginOutlined,
+  LogoutOutlined,
   UploadOutlined,
   CustomerServiceOutlined,
 } from '@ant-design/icons';
@@ -64,12 +65,13 @@ const SideBar = () => {
         console.log(err.message)}
     }, [userId])
 
-    let defaultName = ""
+    let defaultNameList = []
     let subScribingNameList = []
     for (let i=0; i<videoList.length; i++) {
-      if(defaultName !== videoList[i].writer.name){ 
-          defaultName = videoList[i].writer.name
-          const element = getItem(defaultName, `/subscribePage/${videoList[i].writer._id}`)
+      if((defaultNameList.indexOf(videoList[i].writer.name)) === -1){ 
+          defaultNameList.push(videoList[i].writer.name)
+          console.log('기본이름은' , defaultNameList)
+          const element = getItem(videoList[i].writer.name, `/subscribePage/${videoList[i].writer._id}`)
           subScribingNameList.push(element)
     }
   } console.log(subScribingNameList)
@@ -82,13 +84,24 @@ const SideBar = () => {
   ];
 
   const items2 = [
-    getItem('업로드', '/video/upload', <UploadOutlined />),
+    loginState ? getItem('로그아웃', '/logout', <LogoutOutlined />) : getItem('로그인', '/login', <LoginOutlined />),
+    getItem('업로드', '/video/upload', <UploadOutlined />),  
     getItem('회원가입', '/register', <CustomerServiceOutlined />),
-    getItem('로그인', '/login', <LoginOutlined />),
-  ];
+    getItem('회원정보 변경', '/userEdit', <InboxOutlined/>),
+   ];
+
 
   const onClick = (e) => {
-    navigate(e.key);
+    if (!loginState & (e.key === '/myVideoPage' || e.key === '/myVideoPage' || e.key === '/likeVideoPage' || e.key === '/subscribePage' || e.key === '/video/upload' || e.key === '/userEdit' )) {
+      navigate("/alertPage")
+    }  
+    else if ( e.key !== '/logout' ) {
+      navigate(e.key)
+    } else {
+      sessionStorage.removeItem('userToken')
+      setLoginState(false)
+      alert('로그아웃 되셨습니다!')
+    }        
   };
 
 
@@ -131,7 +144,7 @@ const SideBar = () => {
         >
           <Row>
           <Col flex="auto"><span style={{color:"whitesmoke"}}>{loginState && `${UserState.name}님 환영합니다!`}</span></Col>
-            <Col flex="330px">
+            <Col flex="485px">
               <Menu
                 theme="dark"
                 mode="horizontal"

@@ -34,17 +34,43 @@ const LikeVideo = () => {
 
   const [videoList, setVideoList] = useState([])
   
+  async function getVideoList() {
+   const idListResponse = await api.get('likeList')
+   const idListResponseData = idListResponse.data
+   console.log('받아온 데이터는' , idListResponseData)
+   
+   const videoIdList = []
+   for (let i=0; i < idListResponseData.length; i++) {
+    videoIdList.push(idListResponseData[i].video_id) 
+   }
+   console.log('비디오아이디 리스트에 들어있는 정보는', videoIdList)
+
+   const LikevideoList = []
+   
+   for (let j=0; j < videoIdList.length; j++) {
+    const videoListResponse = await api.get(`video/getVideoDetail/${videoIdList[j]}`)
+    const videoListResponseData = videoListResponse.data
+    console.log('보내는 ID정보는', videoListResponseData)
+    LikevideoList.push(videoListResponseData)
+   }
+   console.log('받아온 데이터는', LikevideoList)
+   setVideoList(LikevideoList)
+   
+  }
+
+  useEffect(() => getVideoList, [])
+  
   // map함수 
 
-  const mapVideo = videoList.map((video, index) => {  
-    
-  const videoId = video.id
-  const writerId = video.writer.id
-  const title = video.title
-  const description = video.description
-  const filePath = video.filePath
-  const thumbnail = video.thumbnail
-  const updatedAt = video.updatedAt 
+  const mapVideo = videoList && (
+    videoList.map((element, index) => {  
+      const videoId = element.video.id
+      const writerId = element.video.writer.id
+      const title = element.video.title
+      const description = element.video.description
+      const filePath = element.video.filePath.substring(8)
+      const thumbnail = element.video.thumbnail
+      const updatedAt = element.video.updatedAt 
   
   return (
 
@@ -55,14 +81,14 @@ const LikeVideo = () => {
     key={videoId}
     >
   
-  <iframe style={cardimageStyle} src={filePath} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen="" >   
-  </iframe>
+  <img style={cardimageStyle} src={`http://localhost:3001/${thumbnail}`} alt="썸네일" >   
+  </img>
 
   <Meta title={title} description={description}/>
   </Card.Grid>
 
-)})
+
+)}))
 
 
 // ------------------------------- 아래는 컴퍼넌트  --------------------------//

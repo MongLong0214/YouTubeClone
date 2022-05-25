@@ -74,8 +74,12 @@ const VideoDetails = ({ id }) => {
       const filterLike = likeList.data.filter(
         (like) => like.userId === verifyUser.data.userId && like.video_id === id
       );
+      console.log("filterLike before if");
       if (filterLike.length !== 0) {
+        console.log("filterLike.length !== 0");
         setIsLike(true);
+      } else {
+        setIsLike(false);
       }
     } catch (e) {
       console.error(e);
@@ -92,12 +96,12 @@ const VideoDetails = ({ id }) => {
   const handleSubscribe = async (e) => {
     const verifyUser = await API.get("verify");
     if (e.target.innerText === "UNSUBSCRIBE") {
-      API.post("unsubscribe", {
+      await API.post("unsubscribe", {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("unsubscribe"));
     } else {
-      API.post("subscribe", {
+      await API.post("subscribe", {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("subscribe"));
@@ -106,9 +110,17 @@ const VideoDetails = ({ id }) => {
 
   const handleLike = async () => {
     try {
-      await API.post(`like/${id}`).then((res) =>
-        console.log("likeRes===>", res)
-      );
+      console.log("handleLike start");
+      const verifyUser = await API.get("verify");
+      const likeData = await API.post(`like/${id}`, {
+        userId: verifyUser.data.userId,
+      });
+      console.log("likeData", likeData);
+      if (likeData.data.message === "delete") {
+        setIsLike(false);
+      } else {
+        setIsLike(true);
+      }
     } catch (e) {
       console.error(e);
     }
@@ -133,7 +145,6 @@ const VideoDetails = ({ id }) => {
       <div className="writer">
         <Avatar src="/static/images/avatar/1.jpg" />
         <div className="subscriber">
-          {/*<p>{video.writer.name}</p>*/}
           <p className="channelName">{writer}</p>
           <p className="subscriberCount">구독자 {subscriberNum}명</p>
           <div>{description}</div>
