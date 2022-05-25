@@ -4,6 +4,7 @@ import { verifyToken } from "../middlewares/verifyToken";
 
 const likeRouter = Router();
 
+// 좋아요 만들기, 삭제하기
 likeRouter.post("/like/:id", verifyToken, async (req, res, next) => {
   try {
     const userId = req.user;
@@ -23,6 +24,7 @@ likeRouter.post("/like/:id", verifyToken, async (req, res, next) => {
   }
 });
 
+// 전체 라이크 리스트 조회
 likeRouter.get("/likeList", verifyToken, async (req, res, next) => {
   const likeList = await LikeService.likeList();
   res.status(200).json(likeList);
