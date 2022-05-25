@@ -11,7 +11,6 @@ import { IconButton } from "@mui/material";
 
 const VideoDetails = ({ id }) => {
   const [videoUrl, setVideoUrl] = useState("");
-  const [comments, setComments] = useState([]);
   const [title, setTitle] = useState("");
   const [updatedDate, setUpdatedDate] = useState("");
   const [description, setDescription] = useState("");
