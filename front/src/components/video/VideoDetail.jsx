@@ -74,7 +74,7 @@ const VideoDetails = ({ id }) => {
       const filterLike = likeList.data.filter(
         (like) => like.userId === verifyUser.data.userId && like.video_id === id
       );
-      console.log("filterLike before if");
+      console.log("filterLike before if============>", filterLike);
       if (filterLike.length !== 0) {
         console.log("filterLike.length !== 0");
         setIsLike(true);
@@ -87,7 +87,7 @@ const VideoDetails = ({ id }) => {
   };
   useEffect(() => {
     getLikeList();
-  }, [isLike]);
+  }, [isLike, id]);
 
   useEffect(() => {
     getVideoDetail().then((res) => console.log("Successfully get Data"));
@@ -109,6 +109,9 @@ const VideoDetails = ({ id }) => {
   };
 
   const handleLike = async () => {
+    if (!sessionStorage.getItem("userToken")) {
+      return alert("로그인이 필요한 서비스입니다.");
+    }
     try {
       console.log("handleLike start");
       const verifyUser = await API.get("verify");
