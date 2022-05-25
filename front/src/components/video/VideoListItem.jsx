@@ -1,6 +1,7 @@
-import React from 'react';
+import React from "react";
+import moment from "moment";
 const VideoListItem = ({ video, onVideoSelect }) => {
-  const imageUrl = video.thumb;
+  const imageUrl = `http://localhost:3001/${video.thumbnail}`;
 
   return (
     <li onClick={() => onVideoSelect(video)} className="list-group-item">
@@ -11,6 +12,10 @@ const VideoListItem = ({ video, onVideoSelect }) => {
 
         <div className="media-body">
           <div className="media-heading">{video.title}</div>
+          <div className="media-heading">{video.writer.name}</div>
+          <div className="media-heading">
+            {moment(video.createdAt).format("YYYY-MM-DD")}
+          </div>
         </div>
       </div>
     </li>

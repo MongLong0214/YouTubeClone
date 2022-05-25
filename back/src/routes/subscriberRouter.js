@@ -43,13 +43,10 @@ subscriberRouter.post("/subscriberNum", loginRequired, async (req, res) => {
 subscriberRouter.post("/subscribed", loginRequired, async (req, res) => {
   try {
     const { userTo, userFrom } = req.body;
-    const subscribed = SubscriberService.subscribed(userTo, userFrom);
+    SubscriberService.subscribed(userTo, userFrom).then((result) => {
+      res.status(200).json({ success: true, subscribed: result });
+    });
     // 구독 한 상태면 true, 구독 안한 상태면 false
-    let result = false;
-    if (subscribed.length != 1) {
-      result = true;
-    }
-    res.status(200).json({ success: true, subscribed: result });
   } catch (err) {
     return res.json({ success: false });
   }

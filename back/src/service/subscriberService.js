@@ -13,7 +13,11 @@ class SubscriberService {
   // 구독 했는지 여부 확인
   static subscribed = async (userTo, userFrom) => {
     const subscribed = await SubscriberModel.findById(userTo, userFrom);
-    return subscribed;
+    let result = false;
+    if (subscribed.length != 0) {
+      result = true;
+    }
+    return result;
   };
   // 구독 취소하기
   static unsubscribe = async (userTo, userFrom) => {
