@@ -8,6 +8,7 @@ import moment from "moment";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import { IconButton } from "@mui/material";
+import axios from "axios";
 
 const VideoDetails = ({ id }) => {
   const [videoUrl, setVideoUrl] = useState("");
@@ -19,6 +20,7 @@ const VideoDetails = ({ id }) => {
   const [writerId, setWriterId] = useState("");
   const [subscribed, setSubscribed] = useState("unsubscribe");
   const [writer, setWriter] = useState("");
+  const [isLike, setIsLike] = useState(false);
 
   const getVideoDetail = async () => {
     try {
@@ -64,6 +66,25 @@ const VideoDetails = ({ id }) => {
       console.error(e);
     }
   };
+
+  const getLikeList = async () => {
+    try {
+      const verifyUser = await API.get("verify");
+      const likeList = await API.get("likeList");
+      const filterLike = likeList.data.filter(
+        (like) => like.userId === verifyUser.data.userId && like.video_id === id
+      );
+      if (filterLike.length !== 0) {
+        setIsLike(true);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  useEffect(() => {
+    getLikeList();
+  }, [isLike]);
+
   useEffect(() => {
     getVideoDetail().then((res) => console.log("Successfully get Data"));
   }, [id, subscribed]);
@@ -83,6 +104,16 @@ const VideoDetails = ({ id }) => {
     }
   };
 
+  const handleLike = async () => {
+    try {
+      await API.post(`like/${id}`).then((res) =>
+        console.log("likeRes===>", res)
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <div className="video-detail col-md-8">
       <div className="embed-responsive embed-responsive-16by9">
@@ -93,8 +124,8 @@ const VideoDetails = ({ id }) => {
         <div className="title">{title}</div>
         <div className="subscriberCount">{updatedDate}.</div>
         <div className="iconButton">
-          <IconButton>
-            <ThumbUpOffAltIcon />
+          <IconButton onClick={handleLike}>
+            {isLike ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
           </IconButton>
         </div>
       </div>
