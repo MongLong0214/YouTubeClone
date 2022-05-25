@@ -65,12 +65,13 @@ const SideBar = () => {
         console.log(err.message)}
     }, [userId])
 
-    let defaultName = ""
+    let defaultNameList = []
     let subScribingNameList = []
     for (let i=0; i<videoList.length; i++) {
-      if(defaultName !== videoList[i].writer.name){ 
-          defaultName = videoList[i].writer.name
-          const element = getItem(defaultName, `/subscribePage/${videoList[i].writer._id}`)
+      if((defaultNameList.indexOf(videoList[i].writer.name)) === -1){ 
+          defaultNameList.push(videoList[i].writer.name)
+          console.log('기본이름은' , defaultNameList)
+          const element = getItem(videoList[i].writer.name, `/subscribePage/${videoList[i].writer._id}`)
           subScribingNameList.push(element)
     }
   } console.log(subScribingNameList)
