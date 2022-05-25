@@ -1,30 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import VideoDetail from './VideoDetail';
-import VideoList from './VideoList';
-import { useParams } from 'react-router-dom';
-import * as API from '../../api';
+import React, { useEffect, useState } from "react";
+import VideoDetail from "./VideoDetail";
+import VideoList from "./VideoList";
+import { useParams, useNavigate } from "react-router-dom";
+import * as API from "../../api";
+import SideBar from "../../NavBar/SideBar";
 
 const VideoDetailPage = () => {
   const { id } = useParams();
-  const [selectedVideo, setSelectedVideo] = useState(null);
-  const getVideoDetail = async () => {
-    const data = await API.get(`http://localhost:3001/video/getVideoDetail/${id}`);
-    console.log(data);
+  const navigator = useNavigate();
+
+  const handleSelect = (video) => {
+    navigator(`/video/${video._id}`);
+    console.log("test");
   };
-  useEffect(() => {
-    //id로 요청 후 데이터 받아온 것 selectedVideo로 설정
-    //비디오 리스트 동영상 정보 가져오기
-    getVideoDetail().then((res) => console.log(res));
-  }, []);
-  const handleSelect = () => {
-    // setSelectedVideo();
-    console.log('test');
-  };
+
   return (
-    <div className="container">
-      <VideoDetail />
-      <VideoList onVideoSelect={handleSelect} />
-    </div>
+    <>
+      <SideBar />
+      <div className="container">
+        <VideoDetail id={id} />
+        <VideoList onVideoSelect={handleSelect} id={id} />
+      </div>
+    </>
   );
 };
 
