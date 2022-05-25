@@ -7,7 +7,7 @@ class LikeModel {
   };
 
   static findByUserAndVideoId = async ({ userId, video_id }) => {
-    const foundLike = await Like.findOne({ userId });
+    const foundLike = await Like.findOne({ userId, video_id });
     return foundLike;
   };
 

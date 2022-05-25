@@ -8,7 +8,10 @@ class LikeService {
     });
     if (foundLike) {
       const deleteLike = await LikeModel.deleteLike({ userId, video_id });
-      return deleteLike;
+      return {
+        status: "succ",
+        message: "delete",
+      };
     }
     const newLike = await LikeModel.create({ userId, video_id });
     return newLike;
