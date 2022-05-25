@@ -38,6 +38,12 @@ class VideoModel {
     return video;
   };
 
+  static deleteById = async (id) => {
+    const deleted = await Video.deleteOne({ _id: id });
+    const isVideoDeleted = deleted.deletedCount === 1;
+    return isVideoDeleted;
+  };
+
   static findByWriter = async (writer) => {
     const video = await Video.find({ writer: { $in: writer } })
       .populate("writer")
