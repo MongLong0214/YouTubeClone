@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import recoil
-import { useSetRecoilState, useRecoilState } from 'recoil';
-import { tokenState, userState, userInfoState } from '../../atom';
+import { useSetRecoilState, useRecoilState } from "recoil";
+import { tokenState, userState, userInfoState } from "../../atom";
 
-import * as Api from '../../api';
+import * as Api from "../../api";
 
 // import { useAlert } from 'react-alert';
-import Container from '@mui/material/Container';
+import Container from "@mui/material/Container";
 
 // Mui
-import { Box } from '@mui/material';
-import Stack from '@mui/material/Stack';
+import { Box } from "@mui/material";
+import Stack from "@mui/material/Stack";
 
 // import styled compo
-import { ValidationTextField, ColorButton } from '../../styledCompo/muiCustom';
+import { ValidationTextField, ColorButton } from "../../styledCompo/muiCustom";
 
-import { RegisterGlass, RegisterTitle } from '../../styledCompo/RegisterStyle';
-import { RedSpan } from '../../styledCompo/LoginStyle';
+import { RegisterGlass, RegisterTitle } from "../../styledCompo/RegisterStyle";
+import { RedSpan } from "../../styledCompo/LoginStyle";
 
 const RegisterFrom = () => {
   //@ 전역 유저 정보
@@ -31,23 +31,23 @@ const RegisterFrom = () => {
   // console.log(setUser);
 
   //useState로 name 상태를 생성함.
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await Api.put('login', {
+      await Api.put("login", {
         email: userInfo.email,
         name: editUser.name,
         userId: userInfo._id,
       });
 
       // 로그인 페이지로 이동함.
-      navigate('/login');
-      alert('You have successfully changed your account.');
+      navigate("/login");
+      alert("You have successfully changed your account.");
     } catch (err) {
-      alert('failed.');
+      alert("failed.");
     }
   };
 
@@ -59,9 +59,9 @@ const RegisterFrom = () => {
 
   //회원탈퇴
   const userDelete = async (e) => {
-    if (window.confirm('정말 삭제하시겠습니까?')) {
-      await Api.delete('login');
-      await navigate('/main');
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      await Api.delete("login");
+      await navigate("/main");
     } else return;
   };
 
@@ -69,30 +69,30 @@ const RegisterFrom = () => {
     <div>
       <Container
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexFlow: 'column',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexFlow: "column",
           paddingTop: 250,
         }}
       >
-        <RegisterGlass style={{ height: '400px' }}>
+        <RegisterGlass style={{ height: "400px" }}>
           <form
             onSubmit={handleSubmit}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexFlow: 'column',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexFlow: "column",
             }}
           >
-            {' '}
+            {" "}
             <RegisterTitle>Edit</RegisterTitle>
             <Box
               sx={{
-                '& > :not(style)': {
+                "& > :not(style)": {
                   m: 1,
-                  width: '560px',
+                  width: "560px",
                 },
               }}
               autoComplete="off"
@@ -100,8 +100,8 @@ const RegisterFrom = () => {
               {/* ///@ 이메일 */}
               <div
                 style={{
-                  '@media (maxWidth: 766px)': {
-                    width: 'auto',
+                  "@media (maxWidth: 766px)": {
+                    width: "auto",
                   },
                 }}
               >
@@ -121,7 +121,11 @@ const RegisterFrom = () => {
                   required
                   label="Name"
                   helperText={
-                    !isNameValid && <RedSpan>Please set the name at least 2 characters.</RedSpan>
+                    !isNameValid && (
+                      <RedSpan>
+                        Please set the name at least 2 characters.
+                      </RedSpan>
+                    )
                   }
                   value={editUser.name}
                   onChange={(e) => {
@@ -133,16 +137,16 @@ const RegisterFrom = () => {
                 spacing={1}
                 direction="row"
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
                 style={{ marginTop: 40 }}
               >
                 {/* ///@ 버튼들 */}
                 <ColorButton
                   variant="outlined"
-                  style={{ width: '35%' }}
+                  style={{ width: "35%" }}
                   //   disabled={!isFormValid}
                   onClick={handleSubmit}
                 >
@@ -150,22 +154,30 @@ const RegisterFrom = () => {
                 </ColorButton>
                 <ColorButton
                   variant="outlined"
-                  style={{ width: '35%', fontSize: '1.2rem', lineHeight: '1.1' }}
-                  onClick={() => navigate('/pwEdit')}
+                  style={{ width: "35%" }}
+                  onClick={() => navigate("/login")}
+                >
+                  취소
+                </ColorButton>
+                <ColorButton
+                  variant="outlined"
+                  style={{
+                    width: "35%",
+                    fontSize: "1.2rem",
+                    lineHeight: "1.1",
+                  }}
+                  onClick={() => navigate("/pwEdit")}
                 >
                   비밀번호 <br />
                   변경
                 </ColorButton>
                 <ColorButton
-                  variant="outlined"
-                  style={{ width: '35%' }}
-                  onClick={() => navigate('/login')}
-                >
-                  취소
-                </ColorButton>
-                <ColorButton
                   variant="contained"
-                  style={{ width: '35%', backgroundColor: '#ffb400', fontSize: '1.3rem' }}
+                  style={{
+                    width: "35%",
+                    backgroundColor: "#ffb400",
+                    fontSize: "1.3rem",
+                  }}
                   onClick={userDelete}
                 >
                   회원탈퇴

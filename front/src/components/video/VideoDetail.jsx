@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { TESTDATA } from "../utils/utils";
 import "../../css/VideoDetail.css";
 import VideoDetailComment from "./VideoDetailComment";
 import { Avatar } from "@mui/material";
@@ -8,7 +7,7 @@ import moment from "moment";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import { IconButton } from "@mui/material";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const VideoDetails = ({ id }) => {
   const [videoUrl, setVideoUrl] = useState("");
@@ -21,6 +20,8 @@ const VideoDetails = ({ id }) => {
   const [subscribed, setSubscribed] = useState("unsubscribe");
   const [writer, setWriter] = useState("");
   const [isLike, setIsLike] = useState(false);
+
+  const navigator = useNavigate();
 
   const getVideoDetail = async () => {
     try {
@@ -79,15 +80,17 @@ const VideoDetails = ({ id }) => {
         console.log("filterLike.length !== 0");
         setIsLike(true);
       } else {
+        console.log("test filter=================>");
         setIsLike(false);
       }
     } catch (e) {
       console.error(e);
     }
   };
+
   useEffect(() => {
     getLikeList();
-  }, [isLike, id]);
+  }, [isLike, videoUrl]);
 
   useEffect(() => {
     getVideoDetail().then((res) => console.log("Successfully get Data"));
@@ -115,11 +118,10 @@ const VideoDetails = ({ id }) => {
     try {
       console.log("handleLike start");
       const verifyUser = await API.get("verify");
-      const likeData = await API.post(`like/${id}`, {
-        userId: verifyUser.data.userId,
-      });
+      const likeData = await API.post(`like/${id}`);
       console.log("likeData", likeData);
       if (likeData.data.message === "delete") {
+        console.log("likeData.data.message========>", likeData.data.message);
         setIsLike(false);
       } else {
         setIsLike(true);
@@ -127,6 +129,10 @@ const VideoDetails = ({ id }) => {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleSubscribePage = () => {
+    navigator(`/subscribePage/${writerId}`);
   };
 
   return (
@@ -148,7 +154,9 @@ const VideoDetails = ({ id }) => {
       <div className="writer">
         <Avatar src="/static/images/avatar/1.jpg" />
         <div className="subscriber">
-          <p className="channelName">{writer}</p>
+          <p className="channelName" onClick={handleSubscribePage}>
+            {writer}
+          </p>
           <p className="subscriberCount">구독자 {subscriberNum}명</p>
           <div>{description}</div>
         </div>

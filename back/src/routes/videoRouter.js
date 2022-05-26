@@ -130,19 +130,33 @@ videoRouter.post(
   }
 );
 
-videoRouter.post(
-  "/video/getVideoByWriter",
-  loginRequired,
-  async (req, res) => {
+videoRouter.post("/video/getVideoByWriter", loginRequired, async (req, res) => {
   //유저 id로 유저가 업로드한 동영상 전부를 가져온다.
-    try { 
+  try {
     const user = req.body.userId;
     const userVideoInfo = await VideoService.getVideoByWriter(user);
     return res.status(200).json({ video: userVideoInfo });
   } catch (err) {
-    return res.json({ succes: false })
+    return res.json({ succes: false });
+  }
+});
+
+videoRouter.delete(
+  "/video/deleteVideo/:id",
+  loginRequired,
+  async (req, res) => {
+    //동영상 id 받아서 삭제
+    try {
+      const videoId = req.params.id;
+      const result = await VideoService.deleteVideo(videoId);
+      if (result.errorMessage) {
+        return res.json(result.errorMessage);
+      }
+      res.status(200).json(result);
+    } catch (err) {
+      console.log(err);
     }
   }
-)
+);
 
 export { videoRouter };

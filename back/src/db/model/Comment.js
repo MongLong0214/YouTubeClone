@@ -30,6 +30,10 @@ class CommentModel {
     const comment = Comment.findOneAndDelete({ _id: id });
     return comment;
   };
+
+  static deleteAll = async (video_id) => {
+    await Comment.delete({ video_id });
+  };
 }
 
 export { CommentModel };
