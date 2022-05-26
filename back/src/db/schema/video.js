@@ -13,13 +13,9 @@ const VideoSchema = new Schema(
     description: {
       type: String,
     },
-    privacy: {
-      type: Number,
-    },
     filePath: {
       type: String,
     },
-    category: String,
     views: {
       type: Number,
       default: 0,

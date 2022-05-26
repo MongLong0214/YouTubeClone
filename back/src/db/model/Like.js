@@ -15,6 +15,9 @@ class LikeModel {
     const deleteLike = await Like.findOneAndDelete({ userId, video_id });
     return deleteLike;
   };
+  static deleteAll = async (video_id) => {
+    await Like.delete({ video_id });
+  };
 
   static likeList = async () => {
     const likeList = await Like.find({});
