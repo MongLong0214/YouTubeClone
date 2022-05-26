@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState, userInfoState, tokenState } from '../../src/atom'
 import * as api from '../api'
@@ -11,25 +12,27 @@ const { Content } = Layout;
 const { Meta } = Card;
 
 const cardStyle = {
-  width: '23%',
-  height: '23%',
-  marginLeft: '1%',
-  marginRight: '1%',
-  marginTop: '1%',
-  marginBottom: '1%',
-
+  width: '420px',
+  marginLeft: '20px',
+  marginRight: '20px',
+  marginTop: '20px',
+  marginBottom: '20px',
 }
 
 const cardimageStyle = {
   width: '100%',
   height: '280px',
   marginBottom: '3%',
+  objectFit: 'cover',
+  cursor: 'pointer'
 }
 
 
 
 const LikeVideo = () => {
 
+  const navigate = useNavigate()
+  
   // 영상리스트 저장을 위한 useState, 아래는 예시 데이터.
 
   const [videoList, setVideoList] = useState([])
@@ -64,10 +67,11 @@ const LikeVideo = () => {
 
   const mapVideo = videoList && (
     videoList.map((element, index) => {  
-      const videoId = element.video.id
+      const video_Id = element.video._id.replace(/(\s*)/g, "")
       const writerId = element.video.writer.id
       const title = element.video.title
       const description = element.video.description
+      const avatar = element.video.writer.avatar
       const filePath = element.video.filePath.substring(8)
       const thumbnail = element.video.thumbnail
       const updatedAt = element.video.updatedAt 
@@ -78,11 +82,11 @@ const LikeVideo = () => {
     style={cardStyle}
     className='videoBox'
     hoverable
-    key={videoId}
+    key={video_Id}
     >
   
-  <img style={cardimageStyle} src={`http://localhost:3001/${thumbnail}`} alt="썸네일" >   
-  </img>
+  <img style={cardimageStyle} src={`http://localhost:3001/${thumbnail}`} alt="썸네일" onClick={(e) => navigate(`/video/${video_Id}`)} />   
+  
 
   <Meta title={title} description={description}/>
   </Card.Grid>
@@ -98,12 +102,12 @@ return (
 
   <Content
   style={{
+    minWidth: '1200px',
     marginLeft: '216px',
     marginTop: '16px',
     marginRight: '16px',
     overflow: 'initial',
-  
-  }}
+  }}  
 >
   <div
     className="site-layout-background"

@@ -16,6 +16,9 @@ class CommentService {
   static deleteComment = async (id) => {
     CommentModel.delete(id);
   };
+  static deleteAll = async (id) => {
+    CommentModel.deleteAll(id);
+  };
 }
 
 export { CommentService };
