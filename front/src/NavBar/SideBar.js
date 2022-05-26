@@ -140,6 +140,7 @@ const SideBar = () => {
           className="site-layout-background"
           style={{
             padding: 0,
+            minWidth: '1200 px',
           }}
         >
           <Row>
