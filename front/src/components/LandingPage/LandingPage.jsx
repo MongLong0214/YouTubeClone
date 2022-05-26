@@ -83,7 +83,7 @@ function LandingPage() {
         overflow: "initial",
       }}
     >
-      <Title level={2}> Recommended </Title>
+      <Title level={2}> 추천 동영상 </Title>
       <hr />
 
       <Row gutter={12}>{renderCards}</Row>
