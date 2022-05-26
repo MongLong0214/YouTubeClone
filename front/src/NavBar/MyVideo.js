@@ -11,8 +11,6 @@ import {
   DeleteOutlined
 } from '@ant-design/icons';
 
-
-
 const { Content } = Layout;
 
 const { Meta } = Card;
@@ -52,19 +50,23 @@ const LikeVideo = () => {
       .then((res) => setVideoList(res.data.video))
   }, [userId])
 
-
   // map함수 
 
   const mapVideo = videoList && 
+  
     videoList.map((video, index) => {  
-      const video_Id = video._id.replace(/(\s*)/g, "")
+      const video_Id = video?._id.replace(/(\s*)/g, "")
       const writerId = video.writer.id
       const title = video.title
       const description = video.description
       const avatar = video.writer.avatar
       const filePath = video.filePath.substring(8)
       const thumbnail = video.thumbnail
-      const updatedAt = video.updatedAt 
+      const updatedAt = video.updatedAt
+      const deleteVideo = (e) => {
+          api.delete(`video/deleteVideo/${video_Id}`).then((res) => navigate('/myVideoPage'))   
+        }
+      
   
   return (
 
@@ -72,15 +74,18 @@ const LikeVideo = () => {
     style={cardStyle}
     className='videoBox'
     hoverable
-    key={video_Id}
+    key = {index}
     >
   
   <img style={cardimageStyle} src={`http://localhost:3001/${thumbnail}`} alt="썸네일" onClick={(e) => navigate(`/video/${video_Id}`)} /> 
 
-  <Meta style={{paddingRight: "48px"}} title={title} description={description} avatar={<Button type="primary" icon={<DeleteFilled /> } shape='circle' size='middle' ghost danger/>} />
+  <Meta style={{paddingRight: "36px"}} title={title} description={description} 
+      avatar={<Button onClick={deleteVideo} type="primary" icon={<DeleteFilled /> } shape='circle' size='middle' ghost danger/>} />
   </Card.Grid> 
 
 )})
+
+
 
 
 // ------------------------------- 아래는 컴퍼넌트  --------------------------//

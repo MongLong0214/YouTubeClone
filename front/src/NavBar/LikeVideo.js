@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { userState, userInfoState, tokenState } from '../../src/atom'
 import * as api from '../api'
 import 'antd/dist/antd.css'; 
-import { Layout, PageHeader, Card, Button } from 'antd';
+import { Layout, PageHeader, Card } from 'antd';
 
 
 const { Content } = Layout;
@@ -62,19 +60,21 @@ const LikeVideo = () => {
   }
 
   useEffect(() => getVideoList, [])
+  useEffect(() => console.log('현재의 비디오 상태를 출력합니다', videoList), [videoList])
+  
   
   // map함수 
 
   const mapVideo = videoList && (
     videoList.map((element, index) => {  
-      const video_Id = element.video._id.replace(/(\s*)/g, "")
-      const writerId = element.video.writer.id
-      const title = element.video.title
-      const description = element.video.description
-      const avatar = element.video.writer.avatar
-      const filePath = element.video.filePath.substring(8)
-      const thumbnail = element.video.thumbnail
-      const updatedAt = element.video.updatedAt 
+      const video_Id = element?.video?._id.replace(/(\s*)/g, "")
+      const writerId = element?.video?.writer.id
+      const title = element?.video?.title
+      const description = element?.video?.description
+      const avatar = element?.video?.writer.avatar
+      const filePath = element?.video?.filePath.substring(8)
+      const thumbnail = element?.video?.thumbnail
+      const updatedAt = element?.video?.updatedAt 
   
   return (
 

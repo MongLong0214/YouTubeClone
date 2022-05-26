@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import axios from "axios";
 import { Avatar, TextField } from "@mui/material";
@@ -7,6 +8,8 @@ const VideoDetailComment = ({ id }) => {
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState(null);
   const inputComment = useRef(null);
+
+  const navigator = useNavigate()
 
   const getComments = async () => {
     try {
@@ -51,6 +54,7 @@ const VideoDetailComment = ({ id }) => {
           setContent(null);
           inputComment.current.value = "";
           getComments();
+          navigator(`/video/${id}`)
         })
         .catch((e) => console.error(e));
     } catch (e) {

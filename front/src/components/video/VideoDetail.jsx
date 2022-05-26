@@ -7,7 +7,7 @@ import moment from "moment";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import { IconButton } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const VideoDetails = ({ id }) => {
   const [videoUrl, setVideoUrl] = useState("");
@@ -103,11 +103,14 @@ const VideoDetails = ({ id }) => {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("unsubscribe"));
+      navigator(`/video/${id}`)
+
     } else {
       await API.post("subscribe", {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("subscribe"));
+      navigator(`/video/${id}`)
     }
   };
 
