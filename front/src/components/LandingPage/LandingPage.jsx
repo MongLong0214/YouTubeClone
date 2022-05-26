@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Avatar, Col, Typography, Row } from 'antd';
+import { Layout, Card, Avatar, Col, Typography, Row } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 
+const { Content } = Layout;
 const { Title } = Typography;
 const { Meta } = Card;
 
@@ -68,12 +69,22 @@ function LandingPage() {
   });
 
   return (
-    <div style={{ width: '75%', margin: '2rem auto' }}>
-      <Title level={2}> Recommended </Title>
-      <hr />
+    <Content
+      style={{
+        minWidth: '1050px',
+        marginLeft: '216px',
+        marginTop: '16px',
+        marginRight: '16px',
+        overflow: 'initial',
 
-      <Row gutter={12}>{renderCards}</Row>
-    </div>
+      }}
+    >
+        <Title level={2}> Recommended </Title>
+        <hr />
+
+        <Row gutter={12}>{renderCards}</Row>
+      
+    </Content>
   );
 }
 
