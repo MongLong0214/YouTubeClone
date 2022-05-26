@@ -16,7 +16,7 @@ class LikeModel {
     return deleteLike;
   };
   static deleteAll = async (video_id) => {
-    await Like.delete({ video_id });
+    await Like.deleteMany({ video_id });
   };
 
   static likeList = async () => {

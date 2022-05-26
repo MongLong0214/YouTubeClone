@@ -32,7 +32,7 @@ class CommentModel {
   };
 
   static deleteAll = async (video_id) => {
-    await Comment.delete({ video_id });
+    await Comment.deleteMany({ video_id });
   };
 }
 
