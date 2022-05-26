@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Card, Avatar, Col, Typography, Row } from "antd";
+import { Layout, Card, Avatar, Col, Typography, Row, PageHeader } from "antd";
 import axios from "axios";
 import moment from "moment";
 
@@ -83,7 +83,18 @@ function LandingPage() {
         overflow: "initial",
       }}
     >
-      <Title level={2}> 추천 동영상 </Title>
+      <PageHeader
+        className="subscribe-page-header"
+        ghost={false}
+        title="추천 동영상"
+        // subTitle={`총 ${videoList.length}개`}
+        avatar={{
+          src: "https://avatars1.githubusercontent.com/u/8186664?s=460&v=4",
+        }}
+        extra={[]}
+      >
+        {" "}
+      </PageHeader>
       <hr />
 
       <Row gutter={12}>{renderCards}</Row>
