@@ -84,11 +84,21 @@ function LandingPage() {
 
       }}
     >
-        <Title level={2}> Recommended </Title>
-        <hr />
+      <PageHeader
+        className="subscribe-page-header"
+        ghost={false}
+        title="추천 동영상"
+        // subTitle={`총 ${videoList.length}개`}
+        avatar={{
+          src: "https://avatars1.githubusercontent.com/u/8186664?s=460&v=4",
+        }}
+        extra={[]}
+      >
+        {" "}
+      </PageHeader>
+      <hr />
 
-        <Row gutter={12}>{renderCards}</Row>
-      
+      <Row gutter={12}>{renderCards}</Row>
     </Content>
   );
 }
