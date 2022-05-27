@@ -7,6 +7,7 @@ import moment from "moment";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import { IconButton } from "@mui/material";
+
 import { Navigate, useNavigate } from "react-router-dom";
 
 const VideoDetails = ({ id }) => {
@@ -103,14 +104,14 @@ const VideoDetails = ({ id }) => {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("unsubscribe"));
-      navigator(`/video/${id}`)
+      
 
     } else {
       await API.post("subscribe", {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("subscribe"));
-      navigator(`/video/${id}`)
+      
     }
   };
 
@@ -139,6 +140,7 @@ const VideoDetails = ({ id }) => {
   };
 
   return (
+    
     <div className="video-detail col-md-8">
       <div className="embed-responsive embed-responsive-16by9">
         <video src={`http://localhost:3001/${videoUrl}`} controls />
@@ -177,7 +179,13 @@ const VideoDetails = ({ id }) => {
       <hr />
       <VideoDetailComment id={id} />
     </div>
+
   );
 };
 
 export default VideoDetails;
+
+
+
+
+ 

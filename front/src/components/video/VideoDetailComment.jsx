@@ -7,9 +7,8 @@ import { Avatar, TextField } from "@mui/material";
 const VideoDetailComment = ({ id }) => {
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState(null);
+  const [lastComent, setLastComent] = useState('');
   const inputComment = useRef(null);
-
-  const navigator = useNavigate()
 
   const getComments = async () => {
     try {
@@ -23,7 +22,7 @@ const VideoDetailComment = ({ id }) => {
 
   useEffect(() => {
     getComments().then((res) => console.log(res));
-  }, [id]);
+  }, [id, lastComent]);
 
   const contentHandler = (e) => {
     setContent(e.target.value);
@@ -54,7 +53,7 @@ const VideoDetailComment = ({ id }) => {
           setContent(null);
           inputComment.current.value = "";
           getComments();
-          navigator(`/video/${id}`)
+          setLastComent(content)
         })
         .catch((e) => console.error(e));
     } catch (e) {
@@ -88,6 +87,7 @@ const VideoDetailComment = ({ id }) => {
                   <div>{comment.content}</div>
                 </div>
               </div>
+            
             </>
           );
         })
@@ -99,3 +99,8 @@ const VideoDetailComment = ({ id }) => {
 };
 
 export default VideoDetailComment;
+
+
+
+
+

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Card, Avatar, Col, Typography, Row } from 'antd';
+import { Layout, Card, Avatar, Col, Typography, Row, PageHeader } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -76,12 +76,12 @@ function LandingPage() {
   return (
     <Content
       style={{
-        minWidth: '1050px',
+        minWidth: '1200px',
         marginLeft: '216px',
         marginTop: '16px',
         marginRight: '16px',
+        position: 'relative',
         overflow: 'initial',
-
       }}
     >
       <PageHeader
