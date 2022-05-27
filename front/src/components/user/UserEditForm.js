@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState, useRecoilState } from "recoil";
 import { tokenState, userState, userInfoState } from "../../atom";
 
+import { message } from "antd";
+
 import * as Api from "../../api";
 
 // import { useAlert } from 'react-alert';
@@ -45,7 +47,7 @@ const RegisterFrom = () => {
 
       // 로그인 페이지로 이동함.
       navigate("/login");
-      alert("You have successfully changed your account.");
+      message.success("회원 정보가 변경 되었습니다.");
     } catch (err) {
       alert("failed.");
     }

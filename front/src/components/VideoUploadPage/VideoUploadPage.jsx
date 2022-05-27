@@ -80,7 +80,7 @@ function VideoUploadPage() {
     Axios.post("http://localhost:3001/video/uploadVideo", variables).then(
       (response) => {
         if (response.data.success) {
-          message.success("video Uploaded Successfully");
+          message.success("영상이 업로드 되었습니다");
 
           // 3초 후 메인페이지로 이동
           setTimeout(() => {

@@ -104,14 +104,11 @@ const VideoDetails = ({ id }) => {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("unsubscribe"));
-      
-
     } else {
       await API.post("subscribe", {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("subscribe"));
-      
     }
   };
 
@@ -140,7 +137,6 @@ const VideoDetails = ({ id }) => {
   };
 
   return (
-    
     <div className="video-detail col-md-8">
       <div className="embed-responsive embed-responsive-16by9">
         <video src={`http://localhost:3001/${videoUrl}`} controls />
@@ -149,6 +145,7 @@ const VideoDetails = ({ id }) => {
       <div className="details">
         <div className="title">{title}</div>
         <div className="subscriberCount">{updatedDate}.</div>
+        <div>{description}</div>
         <div className="iconButton">
           <IconButton onClick={handleLike}>
             {isLike ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
@@ -163,7 +160,6 @@ const VideoDetails = ({ id }) => {
             {writer}
           </p>
           <p className="subscriberCount">구독자 {subscriberNum}명</p>
-          <div>{description}</div>
         </div>
         {sessionStorage.getItem("userToken") && (
           <div className="btnWrapper">
@@ -171,7 +167,7 @@ const VideoDetails = ({ id }) => {
               className={`subscribeButton ${subscribed}`}
               onClick={handleSubscribe}
             >
-              {subscribed === "subscribe" ? "UNSUBSCRIBE" : "SUBSCRIBE"}
+              {subscribed === "subscribe" ? "구독 취소" : "구독"}
             </button>
           </div>
         )}
@@ -179,13 +175,7 @@ const VideoDetails = ({ id }) => {
       <hr />
       <VideoDetailComment id={id} />
     </div>
-
   );
 };
 
 export default VideoDetails;
-
-
-
-
- 
