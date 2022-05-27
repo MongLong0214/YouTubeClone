@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../src/atom'
 import * as api from '../api'
 import 'antd/dist/antd.css'; 
 import { Layout, PageHeader, Card } from 'antd';
@@ -34,33 +36,32 @@ const LikeVideo = () => {
   // 영상리스트 저장을 위한 useState, 아래는 예시 데이터.
 
   const [videoList, setVideoList] = useState([])
-  
+  const [videoNum, setVideoNum] = useState(0)
+  const user_Id = useRecoilValue(userState)._id
+
   async function getVideoList() {
    const idListResponse = await api.get('likeList')
    const idListResponseData = idListResponse.data
-   console.log('받아온 데이터는' , idListResponseData)
+   const selectedIdList = idListResponseData.filter((element, index) => element.userId === user_Id)
    
    const videoIdList = []
-   for (let i=0; i < idListResponseData.length; i++) {
-    videoIdList.push(idListResponseData[i].video_id) 
+   for (let i=0; i < selectedIdList.length; i++) {
+    videoIdList.push(selectedIdList[i].video_id) 
    }
-   console.log('비디오아이디 리스트에 들어있는 정보는', videoIdList)
 
    const LikevideoList = []
    
    for (let j=0; j < videoIdList.length; j++) {
     const videoListResponse = await api.get(`video/getVideoDetail/${videoIdList[j]}`)
     const videoListResponseData = videoListResponse.data
-    console.log('보내는 ID정보는', videoListResponseData)
     LikevideoList.push(videoListResponseData)
    }
-   console.log('받아온 데이터는', LikevideoList)
+   setVideoNum(LikevideoList.length)
    setVideoList(LikevideoList)
    
   }
 
   useEffect(() => getVideoList, [])
-  useEffect(() => console.log('현재의 비디오 상태를 출력합니다', videoList), [videoList])
   
   
   // map함수 
@@ -106,6 +107,7 @@ return (
     marginLeft: '216px',
     marginTop: '16px',
     marginRight: '16px',
+    position: 'relative',
     overflow: 'initial',
   }}  
 >
@@ -120,8 +122,8 @@ return (
   <PageHeader
     className="subscribe-page-header"
     ghost={false}
-    title="좋아요"
-    subTitle="총 3개"
+    title="좋아요 동영상"
+    subTitle={`${videoNum}개`}
     avatar={{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }}
     extra={[]}
   />

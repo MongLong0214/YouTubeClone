@@ -40,6 +40,7 @@ const LikeVideo = () => {
   // 영상리스트 저장을 위한 useState, 아래는 예시 데이터.
 
   const [videoList, setVideoList] = useState([])
+  const [latestdeleteId, setLatestdeletedId] = useState('')
   const userId = useRecoilValue(userState)._id
   const userName = useRecoilValue(userState).name
 
@@ -48,7 +49,7 @@ const LikeVideo = () => {
       userId: userId 
     })
       .then((res) => setVideoList(res.data.video))
-  }, [userId])
+  }, [userId, latestdeleteId])
 
   // map함수 
 
@@ -64,7 +65,11 @@ const LikeVideo = () => {
       const thumbnail = video.thumbnail
       const updatedAt = video.updatedAt
       const deleteVideo = (e) => {
-          api.delete(`video/deleteVideo/${video_Id}`).then((res) => navigate('/myVideoPage'))   
+          api.delete(`video/deleteVideo/${video_Id}`)
+          .then((res) => { if (res.data.status === 'success') {
+            setLatestdeletedId(video_Id)
+          }})
+            
         }
       
   
@@ -76,12 +81,12 @@ const LikeVideo = () => {
     hoverable
     key = {index}
     >
-  
   <img style={cardimageStyle} src={`http://localhost:3001/${thumbnail}`} alt="썸네일" onClick={(e) => navigate(`/video/${video_Id}`)} /> 
 
   <Meta style={{paddingRight: "36px"}} title={title} description={description} 
       avatar={<Button onClick={deleteVideo} type="primary" icon={<DeleteFilled /> } shape='circle' size='middle' ghost danger/>} />
-  </Card.Grid> 
+  </Card.Grid>
+  
 
 )})
 
@@ -99,6 +104,7 @@ return (
     marginLeft: '216px',
     marginTop: '16px',
     marginRight: '16px',
+    position: 'relative',
     overflow: 'initial',
   }}
 >
@@ -114,7 +120,7 @@ return (
     className="subscribe-page-header"
     ghost={false}
     title='나의 동영상'
-    subTitle={`총 ${videoList.length}개`}
+    subTitle={`${videoList.length}개`}
     avatar={{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }}
     extra={[]}
   />

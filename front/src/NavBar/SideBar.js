@@ -46,16 +46,15 @@ const SideBar = () => {
       setUserInfostate(undefined)  
       } else {
         setLoginState(true)
-        console.log(loginState)
       }
       
     } 
 
-    useEffect(stateInitialization, [loginState, userToken, setUserState, setTokenState, setUserInfostate])
+    useEffect(stateInitialization, [])
 
     const [videoList, setVideoList] = useState([])
+  
     const userId = useRecoilValue(userState)._id
-    const userName = useRecoilValue(userState).name
 
     useEffect(() => {
       try {
@@ -66,15 +65,16 @@ const SideBar = () => {
     }, [userId])
 
     let defaultNameList = []
+    let defaultIdList = []
     let subScribingNameList = []
     for (let i=0; i<videoList.length; i++) {
-      if((defaultNameList.indexOf(videoList[i].writer.name)) === -1){ 
+      if((defaultIdList.indexOf(videoList[i].writer._id)) === -1){ 
+          defaultIdList.push(videoList[i].writer._id)
           defaultNameList.push(videoList[i].writer.name)
-          console.log('기본이름은' , defaultNameList)
           const element = getItem(videoList[i].writer.name, `/subscribePage/${videoList[i].writer._id}`)
           subScribingNameList.push(element)
     }
-  } console.log(subScribingNameList)
+  } 
     
   const items = [
     getItem('홈', '/', <HomeOutlined />),
@@ -106,12 +106,13 @@ const SideBar = () => {
 
 
   return (
+  
     <>
       <Layout hasSider>
         <Sider
           style={{
             overflow: 'auto',
-            height: '100vh',
+            height: 'auto',
             position: 'fixed',
             paddingTop: 60,
             left: 0,
@@ -140,7 +141,8 @@ const SideBar = () => {
           className="site-layout-background"
           style={{
             padding: 0,
-            minWidth: '1200 px',
+            position: 'relative',
+            minWidth: '900px',
           }}
         >
           <Row>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { userState, userInfoState, tokenState } from '../../src/atom'
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../src/atom'
 import * as api from '../api'
 import 'antd/dist/antd.css'; 
 import { Layout, PageHeader, Card, Button } from 'antd';
@@ -39,6 +39,21 @@ const SubScribe = () => {
   const Id = subscribingId
   const [videoList, setVideoList] = useState([])
   const [videoWirterName, setvideoWirterName] = useState('')
+  const [videoWriterId, setVideoWriterId] = useState('')
+  const [subScribeNum, setSubScribeNum] = useState(0)
+  const userId = useRecoilValue(userState)._id
+
+  /* 구독 취소 함수 */
+
+  const handleUnsubscribe = async (e) => {
+  await api.post("unsubscribe", {
+    userTo: videoWriterId,
+    userFrom: userId,
+    }).then(() => {
+      alert('구독이 취소되었습니다') 
+      navigate("/")});  
+  }
+
 
   useEffect(() => {
     api.post("video/getVideoByWriter", {
@@ -46,8 +61,17 @@ const SubScribe = () => {
     })
       .then((res) => {
         setVideoList(res.data.video)
-        setvideoWirterName(res.data.video[0].writer.name)})
-  }, [Id])
+        setvideoWirterName(res.data.video[0].writer.name)
+        setVideoWriterId(res.data.video[0].writer._id)
+        return res.data.video[0].writer._id})
+      .then(res => api.post("subscriberNum", { userTo: res }))
+      .then(res => setSubScribeNum(res.data.subscriberNum))
+    }, [Id])
+
+
+
+
+
 
 
   /* map함수 */
@@ -81,6 +105,9 @@ const SubScribe = () => {
 )})
 
 
+
+
+
 // ------------------------------- 아래는 컴퍼넌트  --------------------------//
 
 
@@ -92,6 +119,7 @@ return (
         marginLeft: '216px',
         marginTop: '16px',
         marginRight: '16px',
+        position: 'relative',
         overflow: 'initial',
       }}
     >
@@ -107,10 +135,10 @@ return (
         className="subscribe-page-header"
         ghost={false}
         title={videoWirterName}
-        subTitle="구독자 71.1만명"
+        subTitle={`구독자 ${subScribeNum}명`}
         avatar={{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }}
         extra={[
-          <Button key="1" type="primary">
+          <Button key="1" type="primary" onClick={handleUnsubscribe}>
             구독 취소
           </Button>, 
         ]}
@@ -126,3 +154,4 @@ return (
 }
 
 export default SubScribe
+
