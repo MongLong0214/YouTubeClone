@@ -104,11 +104,13 @@ const VideoDetails = ({ id }) => {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("unsubscribe"));
+      console.log("구독취소");
     } else {
-      await API.post("구독", {
+      await API.post("subscribe", {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("subscribe"));
+      console.log("구독");
     }
   };
 
