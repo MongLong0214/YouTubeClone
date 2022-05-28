@@ -99,13 +99,13 @@ const VideoDetails = ({ id }) => {
 
   const handleSubscribe = async (e) => {
     const verifyUser = await API.get("verify");
-    if (e.target.innerText === "UNSUBSCRIBE") {
+    if (e.target.innerText === "구독 취소") {
       await API.post("unsubscribe", {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("unsubscribe"));
     } else {
-      await API.post("subscribe", {
+      await API.post("구독", {
         userTo: writerId,
         userFrom: verifyUser.data.userId,
       }).then(setSubscribed("subscribe"));
