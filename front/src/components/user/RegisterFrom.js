@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // import { useAlert } from 'react-alert';
+import { message } from "antd";
 
 import Container from "@mui/material/Container";
 
@@ -44,7 +45,7 @@ const RegisterFrom = () => {
 
       // 로그인 페이지로 이동함.
       navigate("/login");
-      alert("You have successfully registered as a member.");
+      message.success("회원가입이 완료 되었슴니다.");
     } catch (err) {
       alert("This email is currently in use. Please enter another email.");
     }

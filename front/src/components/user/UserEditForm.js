@@ -63,7 +63,7 @@ const RegisterFrom = () => {
   const userDelete = async (e) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       await Api.delete("login");
-      await navigate("/main");
+      await navigate("/");
     } else return;
   };
 
